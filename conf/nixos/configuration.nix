@@ -36,6 +36,8 @@
     vim
     firefox
     git
+    gitAndTools.tig
+    ag
     tmux
     neovim
     docker
