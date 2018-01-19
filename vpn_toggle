@@ -94,7 +94,12 @@ set_repos(){
 
     sudo yum -q clean all
 
+<<<<<<< HEAD
     set_proxy $proxy_mode
+=======
+    echo "Setting gnome proxy mode to $proxy_mode........."
+    gsettings set org.gnome.system.proxy mode "'$proxy_mode'"
+>>>>>>> created script that will do nice things for my env when I wantt to toggle the vpn
 }
 
 case $1 in
@@ -104,12 +109,15 @@ case $1 in
     "off")
         set_repos normal
         ;;
+<<<<<<< HEAD
     "")
         auto_toggle
         ;;
     "loop")
         auto_toggle_loop
         ;;
+=======
+>>>>>>> created script that will do nice things for my env when I wantt to toggle the vpn
     *)
         exitUsage
         ;;
