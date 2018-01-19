@@ -71,3 +71,5 @@ alias googlebot='curl -L -A "Googlebot/2.1 (+http://www.google.com/bot.html)"'
 # I like things simple :)
 alias tree='tree --charset=ASCII'
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
