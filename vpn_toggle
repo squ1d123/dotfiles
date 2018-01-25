@@ -18,9 +18,9 @@ exitUsage () {
 auto_toggle(){
     if $(ip tuntap show | grep -w "tun0: tun" > /dev/null)
     then
-        ./$0 on
+        $0 on
     else
-        ./$0 off
+        $0 off
     fi
 }
 
