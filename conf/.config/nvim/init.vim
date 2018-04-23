@@ -75,7 +75,7 @@ nnoremap <leader>sc :nohl<CR>
 nnoremap <leader>op :set invpaste paste?<CR>
 
 " Toggle line numbers
-nnoremap <leader>tn :set invnumber<CR>
+nnoremap <leader>tn :set invnumber<CR>:GitGutterToggle<CR>
 
 " Shortcut to edit dotfiles
 nnoremap <leader>fed :execute "e " . g:config_path . "init.vim"<CR>
@@ -116,6 +116,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'     " Allow commenting blocks of code
 Plug 'tpope/vim-surround'       " For manipulating surrounding text
 Plug 'tpope/vim-vinegar'        " Enhance the default file explorer, netrw
+Plug 'tpope/vim-unimpaired'     " misc shortcuts + new lines in normal mode
 
 if has("win32")
     Plug 'ctrlpvim/ctrlp.vim'       " Jump around files
