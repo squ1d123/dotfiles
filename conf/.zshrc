@@ -68,7 +68,7 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 
 # Easily start a new emacs client in terminal
-alias ec="emacsclient -t"
+alias ec="nvim"
 
 # Pull down a webpage as googlebot
 alias googlebot='curl -L -A "Googlebot/2.1 (+http://www.google.com/bot.html)"'

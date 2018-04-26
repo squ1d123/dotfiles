@@ -22,6 +22,7 @@ set list          " Actually show the listchars above
 set tabstop=4
 set shiftwidth=4
 set expandtab
+autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 
 " Case insensitive unless we type caps
 " (Force sensitivity by suffixing with \C if neccesary)
@@ -50,6 +51,9 @@ inoremap kj <esc>
 " Move up/down sensibly on wrapped lines
 noremap j gj
 noremap k gk
+
+" Make Y behave as C and D do
+noremap Y y$
 
 " Pretty junky clipboard integration
 " Windows: Make sure win32yank.exe is on your PATH.
