@@ -85,5 +85,6 @@ alias tree='tree --charset=ASCII'
 export KEYTIMEOUT=1
 
 bindkey "^V" edit-command-line
+bindkey -v
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
