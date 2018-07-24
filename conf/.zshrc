@@ -21,6 +21,11 @@ antigen bundle common-aliases
 # bindkey -M filterselect '^J' down-line-or-history
 # bindkey -M filterselect '^K' up-line-or-history
 
+# Bindkeys - Can use `cat` and then press key combos to get codes for here
+# Ctrl + left/right to skip words
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+
 # Cool, but slows everything down :(
 # antigen bundle zsh-users/zsh-autosuggestions
 # bindkey '^ ' autosuggest-accept
@@ -62,8 +67,9 @@ fi
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
-# Easily start a new emacs client in terminal
-alias ec="emacsclient -t"
+# Open the $EDITOR
+# Named for legacy reasons from my emacs days - alias ec="emacsclient -t"
+alias ec=$EDITOR
 
 # Pull down a webpage as googlebot
 alias googlebot='curl -L -A "Googlebot/2.1 (+http://www.google.com/bot.html)"'
@@ -71,5 +77,14 @@ alias googlebot='curl -L -A "Googlebot/2.1 (+http://www.google.com/bot.html)"'
 # I like things simple :)
 alias tree='tree --charset=ASCII'
 
+####################################################
+# VI MODE
+# Notes from http://stratus3d.com/blog/2017/10/26/better-vi-mode-in-zshell/
+
+# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
+export KEYTIMEOUT=1
+
+bindkey "^V" edit-command-line
+bindkey -v
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

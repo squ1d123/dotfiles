@@ -22,6 +22,7 @@ set list          " Actually show the listchars above
 set tabstop=4
 set shiftwidth=4
 set expandtab
+autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 
 " Case insensitive unless we type caps
 " (Force sensitivity by suffixing with \C if neccesary)
@@ -51,6 +52,9 @@ inoremap kj <esc>
 noremap j gj
 noremap k gk
 
+" Make Y behave as C and D do
+noremap Y y$
+
 " Pretty junky clipboard integration
 " Windows: Make sure win32yank.exe is on your PATH.
 nnoremap <S-Insert> "+P
@@ -75,7 +79,7 @@ nnoremap <leader>sc :nohl<CR>
 nnoremap <leader>op :set invpaste paste?<CR>
 
 " Toggle line numbers
-nnoremap <leader>tn :set invnumber<CR>
+nnoremap <leader>tn :set invnumber<CR>:GitGutterToggle<CR>
 
 " Shortcut to edit dotfiles
 nnoremap <leader>fed :execute "e " . g:config_path . "init.vim"<CR>
@@ -116,6 +120,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'     " Allow commenting blocks of code
 Plug 'tpope/vim-surround'       " For manipulating surrounding text
 Plug 'tpope/vim-vinegar'        " Enhance the default file explorer, netrw
+Plug 'tpope/vim-unimpaired'     " misc shortcuts + new lines in normal mode
+
+Plug 'w0rp/ale'                 " Asynchronous Lint Engine
 
 if has("win32")
     Plug 'ctrlpvim/ctrlp.vim'       " Jump around files
