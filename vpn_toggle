@@ -31,6 +31,29 @@ auto_toggle_loop(){
     done
 }
 
+set_proxy(){
+    proxy_mode=$1
+    proxy_port='3128'
+    proxy_host='localhost'
+    proxy_types=(ftp socks http https)
+    ignore_hosts="['localhost', '127.0.0.0/8', '10.0.0.0/8', '192.168.0.0/16', '172.16.0.0/12', 'westpac.co.nz']"
+
+    if [ "x$proxy_mode" = "x" ];then
+        echo "you must provide a proxy mode"
+        exit 2
+    fi
+
+    echo "Setting gnome proxy mode to $proxy_mode........."
+    gsettings set org.gnome.system.proxy mode "'$proxy_mode'"
+    gsettings set org.gnome.system.proxy ignore-hosts "$ignore_hosts"
+    for i in "${proxy_types[@]}"
+    do
+        gsettings set org.gnome.system.proxy.$i host "'$proxy_host'"
+        gsettings set org.gnome.system.proxy.$i port "$proxy_port"
+    done
+
+}
+
 set_repos(){
     
     pushd /etc/yum.repos.d
@@ -71,8 +94,7 @@ set_repos(){
 
     sudo yum -q clean all
 
-    echo "Setting gnome proxy mode to $proxy_mode........."
-    gsettings set org.gnome.system.proxy mode "'$proxy_mode'"
+    set_proxy $proxy_mode
 }
 
 case $1 in
