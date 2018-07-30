@@ -40,7 +40,7 @@ antigen apply
 ####################################################
 # EXPORTS
 
-export EDITOR='nvim'
+export EDITOR='emacsclient -nw'
 # Adding the below line lets emacsclient start emacs if it isn't already started
 # ...Intuitive, right?
 export ALTERNATE_EDITOR=''
@@ -84,7 +84,44 @@ alias tree='tree --charset=ASCII'
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
 export KEYTIMEOUT=1
 
-bindkey "^V" edit-command-line
+bindkey -M vicmd "^V" edit-command-line
 bindkey -v
 
+# Updates editor information when the keymap changes.
+function zle-keymap-select() {
+    zle reset-prompt
+    zle -R
+}
+
+zle -N zle-keymap-select
+
+function vi_mode_prompt_info() {
+    echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
+}
+
+# define right prompt, regardless of whether the theme defined it
+RPS1='$(vi_mode_prompt_info)'
+RPS2=$RPS1
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# kubectl auto completion
+
+# Check if 'kubectl' is a command in $PATH
+if [ $commands[kubectl] ]; then
+
+    # Placeholder 'kubectl' shell function:
+    # Will only be executed on the first call to 'kubectl'
+    kubectl() {
+
+        # Remove this function, subsequent calls will execute 'kubectl' directly
+        unfunction "$0"
+
+        # Load auto-completion
+        source <(kubectl completion zsh)
+
+        # Execute 'kubectl' binary
+        $0 "$@"
+    }
+fi
+

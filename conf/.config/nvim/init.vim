@@ -143,7 +143,7 @@ Plug 'airblade/vim-gitgutter'   " See working dir changes, stage hunks from vim
 " Languages (Uncomment as required)
 " Plug 'rust-lang/rust.vim'
 " Plug 'jceb/vim-orgmode'                " Basic emacs org-mode functionality
-" Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'martinda/Jenkinsfile-vim-syntax'
 " Plug 'LnL7/vim-nix'
 
 Plug 'godlygeek/tabular'               " md: plasticboy/vim-markdown dependency
