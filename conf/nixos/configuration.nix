@@ -7,15 +7,27 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "/dev/nvme0n1p1";
 
-  
+  # Enables audio
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+  };
+
+  hardware.bluetooth.enable = true;
+
+  hardware.bluetooth.extraConfig = "
+  [General]
+  Enable=Source,Sink,Media,Socket
+";
+
   networking.hostName = "nixos"; # Define your hostname.
   networking.networkmanager.enable = true;
 
@@ -32,15 +44,18 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    wget 
-    vim
+    ag
+    docker
+    emacs
     firefox
     git
     gitAndTools.tig
-    ag
-    tmux
+    htop
+    keepassx
     neovim
-    docker
+    tmux
+    vim
+    wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -76,6 +91,7 @@
   services.xserver.desktopManager.plasma5.enable = true;
 
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   programs.zsh.enable = true;
 
@@ -85,7 +101,11 @@
   users.extraUsers.sameer = {
     isNormalUser = true;
     extraGroups = [
+      "audio"
+      "docker"
       "networkmanager"
+      "vboxusers"
+      "video"
       "wheel"
     ];
     shell = pkgs.zsh;
@@ -96,6 +116,7 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "17.09"; # Did you read the comment?
+  system.stateVersion = "18.03"; # Did you read the comment?
 
 }
+
