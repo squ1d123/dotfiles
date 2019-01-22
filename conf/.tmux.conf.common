@@ -1,6 +1,4 @@
-# The main tmux config file for this machine.
-# I like to set per-machine colors so I know where I am!
-# Tip: Use named colors so they look good with different terminal themes.
+# Notes -------------------------------------------------------------------- {{{
 
 # "Ctrl+B ?" for in-tmux help!
 
@@ -27,6 +25,7 @@ set -g escape-time 10
 
 # }}}
 # Mouse Functionality ------------------------------------------------------ {{{
+
 # Enable mouse for different versions of tmux
 # (If 'awk' exits with status 0, 'if-shell' evaluates to true)
 # tmux < v2.1:
@@ -42,13 +41,50 @@ if-shell "tmux -V | head -1 | awk '{exit !($2 < \"2.1\")}'" \
 # set -g prefix C-a
 # unbind C-b
 
-# bind-key a send-prefix
-set -g prefix C-b
-bind-key C-b send-prefix
+bind-key b last-window
 
-tmux_accent=cyan
-# tmux_accent=colour166
-# tmux_accent=colour43
+# map vi movement keys as pane movement keys
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key l select-pane -R
+
+# Access your last used window
+bind-key Tab last-window
+
+# Shift panes around windows
+# http://maciej.lasyk.info/2014/Nov/19/tmux-join-pane/
+bind-key S command-prompt -p "Join pane from:"  "join-pane -s '%%'"
+bind-key s command-prompt -p "Send pane to:"  "join-pane -t '%%'"
+# Break this pane off to a new window
+bind-key B break-pane -t :
+
+# Shift windows around sessions
+# This is a default key! PREFIX .
+# bind-key S command-prompt -p "Send window to:"  "move-window -t '%%'"
+
+# Make a sTicky window (Who actually uses clock mode?)
+bind-key t command-prompt -p "Stick window to:"  "link-window -t '%%'"
+
+# Move the current window left/right
+bind-key -r C-p swap-window -t -1
+bind-key -r C-n swap-window -t +1
+
+# reload ~/.tmux.conf using PREFIX R
+bind-key R source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf."
+
+# maintain pwd when splitting pane
+
+if-shell "tmux -V | head -1 | awk '{exit !($2 > \"2.1\")}'" \
+    "bind '\"' split-window -c \"#{pane_current_path}\" ; bind % split-window -h -c \"#{pane_current_path}\" ; bind c new-window -c \"#{pane_current_path}\" ; "
+
+# }}}
+# Theme -------------------------------------------------------------------- {{{
+
+set -g status-fg white
+set -g status-bg black
+
+# Accent is set in a config which includes this one
 # Remember you can use #[fg=$tmux_accent,bg=white] in any of these format strings.
 set -g status-left ' #[bold]#S#[default] |'
 set -g status-right ' #[bold]#(hostname)#[default] | %U %a %m-%d %H:%M '
@@ -56,9 +92,9 @@ set -g status-right ' #[bold]#(hostname)#[default] | %U %a %m-%d %H:%M '
 set -g pane-active-border-fg $tmux_accent
 set -g window-status-format " #I #W "
 
-setw -g window-status-fg colour249
+setw -g window-status-fg white
 setw -g window-status-current-bg $tmux_accent
-setw -g window-status-current-fg white
+setw -g window-status-current-fg brightwhite
 setw -g window-status-current-attr bold
 setw -g window-status-current-format ' #I #W '
 
@@ -69,9 +105,10 @@ setw -g window-status-current-format ' #I #W '
 # bind-key -t vi-copy v begin-selection
 # bind-key -t vi-copy C-v rectangle-toggle
 # # Interact with thinclient
+# bind-key -t vi-copy y copy-pipe "sendclipboard"
+# bind-key -t vi-copy p copy-pipe "puush | sendclipboard"
 bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -ib"
 bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection-and-cancel "xsel -ib"
-# bind-key -t vi-copy p copy-pipe "puush | sendclipboard"
 
 # }}}
 # Custom Functions --------------------------------------------------------- {{{
@@ -79,4 +116,4 @@ bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-selection-and-cance
 # Send the keys of today's date in YYYY-MM-DD
 bind-key D run-shell 'tmux send-keys $(date +%F)'
 
-source-file ~/.tmux.conf.common
+# }}}

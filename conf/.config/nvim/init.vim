@@ -23,6 +23,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
+autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2
+autocmd Filetype Jenkinsfile setlocal commentstring=//\ %s
 
 " Case insensitive unless we type caps
 " (Force sensitivity by suffixing with \C if neccesary)
@@ -112,7 +114,7 @@ if !has('nvim')
     Plug 'tpope/vim-sensible'   " Sensible defaults. Neovim has this inbuilt.
 endif
 
-" Themes
+" Themes (256 color)
 " Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
 
@@ -126,6 +128,8 @@ Plug 'tpope/vim-vinegar'        " Enhance the default file explorer, netrw
 Plug 'tpope/vim-unimpaired'     " misc shortcuts + new lines in normal mode
 
 Plug 'w0rp/ale'                 " Asynchronous Lint Engine
+Plug 'sgur/vim-editorconfig'    " Obey `.editorconfig` files (https://editorconfig.org/)
+                                " (This has better performance than the official plugin)
 
 if has("win32")
     Plug 'ctrlpvim/ctrlp.vim'       " Jump around files
