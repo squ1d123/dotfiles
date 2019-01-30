@@ -39,7 +39,7 @@ source ~/.zshrc.vimode
 ####################################################
 # EXPORTS
 
-export EDITOR='emacsclient -nw'
+export EDITOR='nvim'
 # Adding the below line lets emacsclient start emacs if it isn't already started
 # ...Intuitive, right?
 export ALTERNATE_EDITOR=''
@@ -77,6 +77,16 @@ alias googlebot='curl -L -A "Googlebot/2.1 (+http://www.google.com/bot.html)"'
 alias tree='tree --charset=ASCII'
 
 alias psg='ps aux | grep -i'
+
+# My git aliases
+alias gac='git add -u && git commit -m'
+alias gpush='git push'
+alias gpull='git pull --rebase'
+alias gs='git status'
+
+# Kubes
+alias kb='kubectl'
+alias dk='docker'
 
 ####################################################
 # VI MODE
