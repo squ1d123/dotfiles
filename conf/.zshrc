@@ -83,6 +83,7 @@ alias gac='git add -u && git commit -m'
 alias gpush='git push'
 alias gpull='git pull --rebase'
 alias gs='git status'
+alias gco='git checkout'
 
 # Kubes
 alias kb='kubectl'

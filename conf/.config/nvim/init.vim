@@ -126,6 +126,9 @@ Plug 'tpope/vim-commentary'     " Allow commenting blocks of code
 Plug 'tpope/vim-surround'       " For manipulating surrounding text
 Plug 'tpope/vim-vinegar'        " Enhance the default file explorer, netrw
 Plug 'tpope/vim-unimpaired'     " misc shortcuts + new lines in normal mode
+Plug 'fatih/vim-hclfmt'         " HCL fmt support
+Plug 'fatih/vim-go'             " Go support
+Plug 'jvirtanen/vim-hcl'
 
 Plug 'w0rp/ale'                 " Asynchronous Lint Engine
 Plug 'sgur/vim-editorconfig'    " Obey `.editorconfig` files (https://editorconfig.org/)
