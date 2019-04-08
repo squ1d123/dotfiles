@@ -24,12 +24,16 @@ set shiftwidth=4
 set expandtab
 autocmd Filetype yaml setlocal tabstop=2 shiftwidth=2
 autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2
+autocmd Filetype lua setlocal tabstop=2 shiftwidth=2
+autocmd Filetype markdown setlocal tabstop=2 shiftwidth=2
 autocmd Filetype Jenkinsfile setlocal commentstring=//\ %s
 
 " Case insensitive unless we type caps
 " (Force sensitivity by suffixing with \C if neccesary)
 set ignorecase  " Need this for smartcase to work
 set smartcase
+
+set noswapfile
 
 " Show regex replace preview live as you type :%s/foo/bar/g
 set inccommand=nosplit
@@ -71,6 +75,11 @@ vnoremap <C-c> "+y
 map <F2> :mksession! ~/.vim_session <cr> " Quick write session with F2
 map <F3> :source ~/.vim_session <cr>     " And load session with F3
 
+" netrw preferences
+" Remember: You can use `gn` to change to the dir under the cursor,
+"           and `i` to change style on the fly.
+let g:netrw_liststyle = 3
+
 " Spacemacs-esque Remaps -----------------
 
 " Remap leader key to something easier to press (Space!)
@@ -102,10 +111,15 @@ nnoremap <leader><TAB> :e#<CR>
 
 " Automatically download vim-plug if we don't have it
 if empty(glob(g:config_path . 'autoload/plug.vim'))
-  execute '!curl -fLo ' . g:config_path . 'autoload/plug.vim --create-dirs' .
+    execute '!curl -fLo ' . g:config_path . 'autoload/plug.vim --create-dirs' .
          \' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  " Install plugins, re-source config so colorschemes are applied
-  autocmd VimEnter * PlugInstall --sync | execute 'source '.g:config_path.'init.vim'
+    if v:shell_error == 0
+        " Install plugins, re-source config so colorschemes are applied
+        autocmd VimEnter * PlugInstall --sync | execute 'source '.g:config_path.'init.vim'
+    else
+        echom "Failed to install vim-plug in order to obtain plugins."
+        echom "Curl returned status: ".v:shell_error
+    end
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
@@ -115,7 +129,7 @@ if !has('nvim')
 endif
 
 " Themes (256 color)
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
 
 Plug 'vim-airline/vim-airline'  " Cool powerline status bar
@@ -129,7 +143,9 @@ Plug 'tpope/vim-unimpaired'     " misc shortcuts + new lines in normal mode
 Plug 'fatih/vim-hclfmt'         " HCL fmt support
 Plug 'fatih/vim-go'             " Go support
 Plug 'jvirtanen/vim-hcl'
+Plug 'tpope/vim-repeat'         " Allow repeating supported plugins with `.`
 
+Plug 'wellle/targets.vim'       " Additional text objects like `cil)`
 Plug 'w0rp/ale'                 " Asynchronous Lint Engine
 Plug 'sgur/vim-editorconfig'    " Obey `.editorconfig` files (https://editorconfig.org/)
                                 " (This has better performance than the official plugin)
@@ -164,15 +180,22 @@ call plug#end()
 
 " Appearance and Themes -------------------------------------------------- {{{1
 
-" colorscheme industry
+" Basic 16 color
+colorscheme desert
+let g:airline_theme='dark_minimal'
+
+" " Gruvbox (Retro and warm feeling)
 " colorscheme gruvbox
-colorscheme jellybeans
+" let g:gruvbox_termcolors=16
+" let g:airline_theme='gruvbox'
+
+" " Jellybeans (Dark and good for work)
+" colorscheme jellybeans
+" let g:airline_theme='jellybeans'
+
 set background=dark
 
 let g:airline_powerline_fonts = 1
-" let g:airline_theme='powerlineish'
-let g:airline_theme='jellybeans'
-
 set noshowmode  " airline replaces the default vim mode line, so we don't need
 
 " Fold markdown on the same line as the title, not the line after
