@@ -37,7 +37,7 @@ antigen apply
 source ~/.zshrc.vimode
 
 ####################################################
-# EXPORTS
+# exports
 
 export EDITOR='nvim'
 # Adding the below line lets emacsclient start emacs if it isn't already started
@@ -90,7 +90,7 @@ alias kb='kubectl'
 alias dk='docker'
 
 ####################################################
-# VI MODE
+# vi mode
 # Notes from http://stratus3d.com/blog/2017/10/26/better-vi-mode-in-zshell/
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)

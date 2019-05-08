@@ -54,8 +54,8 @@ autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) 
 " Non-plugin Remaps ------------------------------------------------------ {{{1
 
 " Use jk/kj to exit insertion mode (Writing this line was fun!)
-inoremap jk <esc>
-inoremap kj <esc>
+" inoremap jk <esc>
+" inoremap kj <esc>
 
 " Move up/down sensibly on wrapped lines
 noremap j gj
@@ -94,6 +94,9 @@ nnoremap <leader>op :set invpaste paste?<CR>
 
 " Toggle line numbers
 nnoremap <leader>tn :set invnumber<CR>:GitGutterToggle<CR>
+
+" Toggle spell check
+nnoremap <leader>ts :set spell!<CR>
 
 " Shortcut to edit dotfiles
 nnoremap <leader>fed :execute "e " . g:config_path . "init.vim"<CR>
@@ -136,19 +139,22 @@ Plug 'vim-airline/vim-airline'  " Cool powerline status bar
 Plug 'vim-airline/vim-airline-themes'
 
 " Usability
-Plug 'tpope/vim-commentary'     " Allow commenting blocks of code
-Plug 'tpope/vim-surround'       " For manipulating surrounding text
-Plug 'tpope/vim-vinegar'        " Enhance the default file explorer, netrw
-Plug 'tpope/vim-unimpaired'     " misc shortcuts + new lines in normal mode
-Plug 'fatih/vim-hclfmt'         " HCL fmt support
-Plug 'fatih/vim-go'             " Go support
+Plug 'tpope/vim-commentary'             " Allow commenting blocks of code
+Plug 'tpope/vim-surround'               " For manipulating surrounding text
+Plug 'tpope/vim-vinegar'                " Enhance the default file explorer, netrw
+Plug 'tpope/vim-unimpaired'             " misc shortcuts + new lines in normal mode
+Plug 'fatih/vim-hclfmt'                 " HCL fmt support
+Plug 'fatih/vim-go'                     " Go support
 Plug 'jvirtanen/vim-hcl'
-Plug 'tpope/vim-repeat'         " Allow repeating supported plugins with `.`
+Plug 'tpope/vim-repeat'                 " Allow repeating supported plugins with `.`
 
-Plug 'wellle/targets.vim'       " Additional text objects like `cil)`
-Plug 'w0rp/ale'                 " Asynchronous Lint Engine
-Plug 'sgur/vim-editorconfig'    " Obey `.editorconfig` files (https://editorconfig.org/)
-                                " (This has better performance than the official plugin)
+Plug 'wellle/targets.vim'               " Additional text objects like `cil)`
+Plug 'w0rp/ale'                         " Asynchronous Lint Engine
+Plug 'sgur/vim-editorconfig'            " Obey `.editorconfig` files (https://editorconfig.org/)
+                                        " (This has better performance than the official plugin)
+
+Plug 'mustache/vim-mustache-handlebars' " Mustache handlebars support
+Plug 'udalov/kotlin-vim'                " Kotlin support
 
 if has("win32")
     Plug 'ctrlpvim/ctrlp.vim'       " Jump around files
