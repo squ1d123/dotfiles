@@ -152,6 +152,7 @@ Plug 'wellle/targets.vim'               " Additional text objects like `cil)`
 Plug 'w0rp/ale'                         " Asynchronous Lint Engine
 Plug 'sgur/vim-editorconfig'            " Obey `.editorconfig` files (https://editorconfig.org/)
                                         " (This has better performance than the official plugin)
+Plug 'hashivim/vim-terraform'   " terraform support
 
 Plug 'mustache/vim-mustache-handlebars' " Mustache handlebars support
 Plug 'udalov/kotlin-vim'                " Kotlin support

@@ -47,7 +47,7 @@ export ALTERNATE_EDITOR=''
 # Make 777 stuff readable in ls
 export LS_COLORS='ow=01;30;42'
 
-export PATH="${PATH}:/${HOME}/bin"
+export PATH="${PATH}:/${HOME}/bin:${HOME}/go/bin:${HOME}/.local/bin"
 
 ####################################################
 # CUSTOM ALIASES
@@ -88,6 +88,7 @@ alias gco='git checkout'
 # Kubes
 alias kb='kubectl'
 alias dk='docker'
+alias dc='docker-compose'
 
 ####################################################
 # vi mode
