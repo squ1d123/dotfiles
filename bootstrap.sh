@@ -15,7 +15,7 @@ git_update() {
   echo git_update $1 $2...
   if [ -d "$2" ]; then
     # Pull down the latest master and replay our changes on top.
-    git -C $2 pull --rebase --stat origin master
+    git -c $2 pull --rebase --stat origin master
   else
     git clone $1 $2;
   fi
@@ -38,7 +38,7 @@ install_pkg() {
 
   # Universal list of software for all operating systems.
   # This list can be added to by other OSes. Useful if there are differences between package names.
-  SOFTWARE="stow git tig tmux cmake zsh inotify-tools ncdu htop tree dict jq"
+  SOFTWARE="stow git tig tmux cmake zsh ncdu htop tree dict jq"
 
   case $OS in
     "Linux")
@@ -46,9 +46,22 @@ install_pkg() {
       # returns a string like "Fedora" or "Ubuntu" or "Debian"
       # DISTRO=`lsb_release -i | cut -d: -f 2 | tr -d '[:space:]'`
       # DISTRO=`lsb_release -i | cut -f 2`
+      DIST=`cat /etc/*release | grep -E "^ID=.*" | cut -d= -f 2 | sed "s/\"//g"`
 
-      PKGMAN="apt-get install"
-      SOFTWARE="$SOFTWARE build-essential silversearcher-ag ack-grep dictd dict-gcide vim"
+      echo $DIST
+      case $DIST in
+          "rhel")
+              PKGMAN="yum install"
+              SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python3-neovim"
+              ;;
+          "ubuntu")
+              PKGMAN="apt-get install"
+              SOFTWARE="$SOFTWARE build-essential silversearcher-ag ack-grep dictd dict-gcide vim"
+              ;;
+          *)
+              echo "Unknown DIST: $DIST"
+              exit
+      esac
       ;;
     "Darwin")
       ;;
@@ -70,7 +83,7 @@ install_pkg() {
 install_git() {
   git_update https://github.com/sickill/stderred.git    ~/.stderred
   git_update https://github.com/zsh-users/antigen.git   ~/.antigen
-  git_update https://github.com/syl20bnr/spacemacs      ~/.emacs.d
+  # git_update https://github.com/syl20bnr/spacemacs      ~/.emacs.d
 }
 
 configure() {
