@@ -20,6 +20,9 @@ set -g @continuum-boot "on"
 
 setw -g mode-keys vi
 
+# Constrain only windows to smallest viewer, not entire sessions
+setw -g aggressive-resize on
+
 # change escape timeout to keep neovim happy
 # https://github.com/neovim/neovim/wiki/FAQ
 set -g escape-time 10
@@ -105,8 +108,7 @@ setw -g window-status-current-format ' #I #W '
 # Clipboard ---------------------------------------------------------------- {{{
 
 # # Try to mimic vim the best you can
-# bind-key -t vi-copy v begin-selection
-# bind-key -t vi-copy C-v rectangle-toggle
+bind-key -T copy-mode-vi v send-keys -X begin-selection
 # # Interact with thinclient
 # bind-key -t vi-copy y copy-pipe "sendclipboard"
 # bind-key -t vi-copy p copy-pipe "puush | sendclipboard"

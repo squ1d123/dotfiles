@@ -45,13 +45,22 @@ set number        " Show line numbers
 set cursorline    " Highlight the line the current cursor is on
 
 set hidden        " Switch buffers without abandoning changes or writing out
-"
+
 " Don't move the cursor back when exiting insert mode
 autocmd InsertEnter * let CursorColumnI = col('.')
 autocmd CursorMovedI * let CursorColumnI = col('.')
 autocmd InsertLeave * if col('.') != CursorColumnI | call cursor(0, col('.')+1) | endif
 
 " Non-plugin Remaps ------------------------------------------------------ {{{1
+
+" re-run the last command in the next pane
+" https://superuser.com/questions/744857/how-to-send-keys-to-other-pane
+nnoremap <C-p> :silent !tmux send-keys -t .+ Up Enter <enter>
+" Alternative workflow ideas:
+" Have a key chuck you over to another pane to run some interactive process
+"   :nnoremap <C-p> :silent !tmux send-keys -t .+ Up Enter && tmux select-pane R <enter>
+" And then send you back when it's done
+"   /run.sh ; tmux select-pane -L
 
 " Use jk/kj to exit insertion mode (Writing this line was fun!)
 " inoremap jk <esc>
@@ -156,6 +165,7 @@ Plug 'hashivim/vim-terraform'   " terraform support
 
 Plug 'mustache/vim-mustache-handlebars' " Mustache handlebars support
 Plug 'udalov/kotlin-vim'                " Kotlin support
+Plug 'jpalardy/vim-slime'       " Send buffer snippets to a REPL
 
 if has("win32")
     Plug 'ctrlpvim/ctrlp.vim'       " Jump around files
@@ -187,18 +197,18 @@ call plug#end()
 
 " Appearance and Themes -------------------------------------------------- {{{1
 
-" Basic 16 color
-colorscheme desert
-let g:airline_theme='dark_minimal'
+" " Basic 16 color
+" colorscheme desert
+" let g:airline_theme='dark_minimal'
 
 " " Gruvbox (Retro and warm feeling)
 " colorscheme gruvbox
 " let g:gruvbox_termcolors=16
 " let g:airline_theme='gruvbox'
 
-" " Jellybeans (Dark and good for work)
-" colorscheme jellybeans
-" let g:airline_theme='jellybeans'
+" Jellybeans (Dark and good for work)
+colorscheme jellybeans
+let g:airline_theme='jellybeans'
 
 set background=dark
 
@@ -238,3 +248,5 @@ else
     nnoremap <leader>sp :Ag 
 endif
 
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.1"}

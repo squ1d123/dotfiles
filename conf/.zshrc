@@ -15,11 +15,6 @@ antigen use oh-my-zsh
 
 antigen bundle common-aliases
 
-# Bindkeys - Can use `cat` and then press key combos to get codes for here
-# Ctrl + left/right to skip words
-bindkey '^[[1;5D' backward-word
-bindkey '^[[1;5C' forward-word
-
 # Cool, but slows everything down :(
 # antigen bundle zsh-users/zsh-autosuggestions
 # bindkey '^ ' autosuggest-accept
@@ -31,10 +26,23 @@ antigen theme pygmalion
 
 antigen bundle vi-mode
 
+# Note that as soon as this line happens, a lot of stuff is lost (Old keybinds, etc)
 antigen apply
+
+####################################################
+# KEYBINDS
 
 # Fix key bindings in vi-mode
 source ~/.zshrc.vimode
+
+# Bindkeys - Can use `cat` and then press key combos to get codes for here
+# Ctrl + left/right to skip words
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+
+# Ctrl + j/k to quickly go up/down (mimicks fzf controls)
+bindkey '^K' up-line-or-search
+bindkey '^J' down-line-or-search
 
 ####################################################
 # exports
@@ -146,6 +154,14 @@ do
     fi
 done
 
+# Start docker containers with different dev environments
+# Avoids polluting whichever system you are working on
+alias dknode='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir node:10.14.2-alpine sh'
+alias dkrust='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir -e USER=$USER rust:1.32-slim bash'
+alias dkpy3='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir python:3.7-stretch bash'
+# Setting $HOME because nim likes to write cache files there
+alias dknim='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir -e HOME=/tmp nimlang/nim:0.20.0-alpine'
+
 ####################################################
 # FUZZY FINDER
 # This is installed via vim plugin.
@@ -153,3 +169,9 @@ done
 
 export FZF_DEFAULT_OPTS='--color 16'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
