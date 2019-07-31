@@ -126,7 +126,7 @@ bindkey "^V" edit-command-line
 # Some software provides autocompletions for zsh.
 # Lazy load as required.
 
-completions=( kubectl helm )
+completions=( kubectl )
 for i in "${completions[@]}"
 do
     if [ $commands[$i] ]; then

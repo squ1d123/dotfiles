@@ -89,6 +89,9 @@ install_git() {
 configure() {
   git config --global core.excludesfile ~/.gitignore_global
 
+  # set zsh as the default shell
+  sudo chsh -s /bin/zsh $USER
+
   # TODO Install stderred.
 }
 
