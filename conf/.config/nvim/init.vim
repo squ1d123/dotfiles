@@ -166,6 +166,7 @@ Plug 'hashivim/vim-terraform'   " terraform support
 Plug 'mustache/vim-mustache-handlebars' " Mustache handlebars support
 Plug 'udalov/kotlin-vim'                " Kotlin support
 Plug 'jpalardy/vim-slime'       " Send buffer snippets to a REPL
+Plug 'zxqfl/tabnine-vim'                "ML based tab completions
 
 if has("win32")
     Plug 'ctrlpvim/ctrlp.vim'       " Jump around files
