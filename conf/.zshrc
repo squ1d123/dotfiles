@@ -159,6 +159,7 @@ done
 alias dknode='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir node:10.14.2-alpine sh'
 alias dkrust='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir -e USER=$USER rust:1.32-slim bash'
 alias dkpy3='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir python:3.7-stretch bash'
+alias dkgroovy='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir groovy:2.5.7-jdk8 bash'
 # Setting $HOME because nim likes to write cache files there
 alias dknim='docker run --rm -it -u "$(id -u):$(id -g)" -v $(pwd):/tmp/workdir -w /tmp/workdir -e HOME=/tmp nimlang/nim:0.20.0-alpine'
 

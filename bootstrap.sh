@@ -12,10 +12,13 @@ git_update() {
   # $1 = repo URL
   # $2 = directory
 
-  echo git_update $1 $2...
+  echo "git_update $1 $2..."
   if [ -d "$2" ]; then
-    # Pull down the latest master and replay our changes on top.
-    git -c $2 pull --rebase --stat origin master
+    (
+        cd "$2"
+        # Pull down the latest master and replay our changes on top.
+        git pull --rebase --stat origin master
+    )
   else
     git clone $1 $2;
   fi
@@ -34,7 +37,7 @@ usage() {
 }
 
 install_pkg() {
-  OS=`uname`
+  OS=$(uname)
 
   # Universal list of software for all operating systems.
   # This list can be added to by other OSes. Useful if there are differences between package names.
@@ -46,13 +49,12 @@ install_pkg() {
       # returns a string like "Fedora" or "Ubuntu" or "Debian"
       # DISTRO=`lsb_release -i | cut -d: -f 2 | tr -d '[:space:]'`
       # DISTRO=`lsb_release -i | cut -f 2`
-      DIST=`cat /etc/*release | grep -E "^ID=.*" | cut -d= -f 2 | sed "s/\"//g"`
+      DIST=$(cat /etc/*release | grep -E "^ID=.*" | cut -d= -f 2 | sed "s/\"//g" )
 
-      echo $DIST
       case $DIST in
           "rhel")
               PKGMAN="yum install"
-              SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python3-neovim"
+              SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python36-neovim"
               ;;
           "ubuntu")
               PKGMAN="apt-get install"
