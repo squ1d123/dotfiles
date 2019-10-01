@@ -41,7 +41,7 @@ install_pkg() {
 
   # Universal list of software for all operating systems.
   # This list can be added to by other OSes. Useful if there are differences between package names.
-  SOFTWARE="stow git tig tmux cmake zsh ncdu htop tree dict jq"
+  SOFTWARE="stow git tig tmux cmake zsh ncdu htop tree jq"
 
   case $OS in
     "Linux")
@@ -58,7 +58,11 @@ install_pkg() {
               ;;
           "ubuntu")
               PKGMAN="apt-get install"
-              SOFTWARE="$SOFTWARE build-essential silversearcher-ag ack-grep dictd dict-gcide vim"
+              SOFTWARE="$SOFTWARE build-essential dict silversearcher-ag ack-grep dictd dict-gcide vim"
+              ;;
+          "arch")
+              PKGMAN="pacman -S"
+              SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python-pynvim"
               ;;
           *)
               echo "Unknown DIST: $DIST"
