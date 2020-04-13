@@ -58,7 +58,7 @@ install_pkg() {
               ;;
           "ubuntu")
               PKGMAN="apt-get install"
-              SOFTWARE="$SOFTWARE build-essential dict silversearcher-ag ack-grep dictd dict-gcide vim"
+              SOFTWARE="$SOFTWARE build-essential dict silversearcher-ag ack-grep dictd dict-gcide vim neovim"
               ;;
           "arch")
               PKGMAN="pacman -S"
@@ -89,6 +89,8 @@ install_pkg() {
 install_git() {
   git_update https://github.com/sickill/stderred.git    ~/.stderred
   git_update https://github.com/zsh-users/antigen.git   ~/.antigen
+  mkdir -p ~/.tmux/plugins
+  git_update https://github.com/tmux-plugins/tpm        ~/.tmux/plugins/tpm
   # git_update https://github.com/syl20bnr/spacemacs      ~/.emacs.d
 }
 
