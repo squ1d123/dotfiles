@@ -70,6 +70,8 @@ install_pkg() {
       esac
       ;;
     "Darwin")
+        PKGMAN="brew install"
+        SOFTWARE="$SOFTWARE the_silver_searcher vim neovim"
       ;;
     "FreeBSD")
       PKGMAN="pkg install"
@@ -82,8 +84,10 @@ install_pkg() {
   esac
 
   echo "Detected OS: $OS"
-  echo "sudo $PKGMAN $SOFTWARE"
-  sudo $PKGMAN $SOFTWARE
+  install_cmd="$PKGMAN $SOFTWARE"
+  if [ "$OS" != "Darwin" ]; then install_cmd="sudo $install_cmd"; fi
+  echo "$install_cmd"
+  exec $install_cmd
 }
 
 install_git() {
