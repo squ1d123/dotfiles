@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+LC_ALL=C
+RED='\033[0;31m'
+NC='\033[0m'
+
+local_branch="$(git branch --show-current)"
+
+valid_branch_regex="^[a-z0-9._-]+$"
+
+message="${RED}ERROR: Branch names in this project must adhere to this contract:${NC} $valid_branch_regex.\nYour commit will be rejected. You should rename your branch to a valid name and try again."
+
+if [[ ! $local_branch =~ $valid_branch_regex ]]
+then
+    echo -e "$message"
+    exit 1
+fi
+
+exit 0

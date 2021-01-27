@@ -16,6 +16,11 @@ set -g allow-rename "off"
 set -g base-index 1
 set -g default-terminal "screen-256color"
 set -g renumber-windows "on"
+
+# Enable continuum, which does automatic saving and reloading
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
 set -g @continuum-boot "on"
 
 setw -g mode-keys vi
