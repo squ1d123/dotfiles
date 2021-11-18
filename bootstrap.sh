@@ -60,6 +60,8 @@ install_pkg() {
               PKGMAN="apt-get install"
               SOFTWARE="$SOFTWARE build-essential dict silversearcher-ag ack-grep dictd dict-gcide vim neovim"
               ;;
+          "manjaro")
+              ;& 
           "arch")
               PKGMAN="pacman -S"
               SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python-pynvim"
@@ -142,6 +144,9 @@ case $1 in
     ;;
   "configure")
     configure
+    ;;
+  "git")
+    install_git
     ;;
   *)
     echo "Invalid command."

@@ -87,11 +87,27 @@ alias tree='tree --charset=ASCII'
 alias psg='ps aux | grep -i'
 
 # My git aliases
+
+# Git checkout, but lowercases new branch names
+function gco {
+    command='git checkout'
+    for ((i = 1; i <= $#; i++ )); do
+        if [ "${argv[i]}" = "-b" ]; then
+            ((i++))
+            command+=" -b ${argv[i]:l}"
+        else
+            command+=" ${argv[i]}"
+        fi
+    done
+    eval ${command}
+}
+
 alias gac='git add -u && git commit -m'
 alias gpush='git push'
 alias gpull='git pull --rebase'
 alias gs='git status'
-alias gco='git checkout'
+alias gamend='git commit --amend'
+alias grebase='git fetch && git rebase -i origin/master'
 
 # Kubes
 alias kb='kubectl'

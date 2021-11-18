@@ -190,6 +190,9 @@ Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'godlygeek/tabular'               " md: plasticboy/vim-markdown dependency
 Plug 'plasticboy/vim-markdown'         " md: Markdown support
 Plug 'junegunn/vim-easy-align'         " md: Align tables
+Plug 'mzlogin/vim-markdown-toc'        " md: Markdown TOC support
+Plug 'hsanson/vim-openapi'             " Add support for openapi
+
 " Stolen from https://robots.thoughtbot.com/align-github-flavored-markdown-tables-in-vim
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
@@ -248,6 +251,10 @@ else
     nnoremap <leader>pt :FZF ~/txt<CR>
     nnoremap <leader>sp :Ag 
 endif
+
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_fmt_on_save=1
 
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": get(split($TMUX, ","), 0), "target_pane": ":.1"}
