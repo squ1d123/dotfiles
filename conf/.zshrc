@@ -46,8 +46,9 @@ bindkey '^J' down-line-or-search
 
 ####################################################
 # exports
+alias ec='NVIM_APPNAME="nvim-take2" nvim'
 
-export EDITOR='nvim'
+export EDITOR='ec'
 # Adding the below line lets emacsclient start emacs if it isn't already started
 # ...Intuitive, right?
 export ALTERNATE_EDITOR=''
@@ -82,7 +83,8 @@ alias mmv='noglob zmv -W'
 
 # Open the $EDITOR
 # Named for legacy reasons from my emacs days - alias ec="emacsclient -t"
-alias ec=$EDITOR
+# Setting this above
+# alias ec=$EDITOR
 
 # Pull down a webpage as googlebot. Can often get around enforced registrations
 alias googlebot='curl -L -A "Googlebot/2.1 (+http://www.google.com/bot.html)"'
