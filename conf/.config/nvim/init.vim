@@ -161,11 +161,11 @@ Plug 'wellle/targets.vim'               " Additional text objects like `cil)`
 Plug 'w0rp/ale'                         " Asynchronous Lint Engine
 Plug 'sgur/vim-editorconfig'            " Obey `.editorconfig` files (https://editorconfig.org/)
                                         " (This has better performance than the official plugin)
-Plug 'hashivim/vim-terraform'   " terraform support
+Plug 'hashivim/vim-terraform'           " terraform support
 
 Plug 'mustache/vim-mustache-handlebars' " Mustache handlebars support
 Plug 'udalov/kotlin-vim'                " Kotlin support
-Plug 'jpalardy/vim-slime'       " Send buffer snippets to a REPL
+Plug 'jpalardy/vim-slime'               " Send buffer snippets to a REPL
 Plug 'zxqfl/tabnine-vim'                "ML based tab completions
 
 if has("win32")
@@ -192,6 +192,7 @@ Plug 'plasticboy/vim-markdown'         " md: Markdown support
 Plug 'junegunn/vim-easy-align'         " md: Align tables
 Plug 'mzlogin/vim-markdown-toc'        " md: Markdown TOC support
 Plug 'hsanson/vim-openapi'             " Add support for openapi
+Plug 'ycm-core/YouCompleteMe'          " Add support language completion
 
 " Stolen from https://robots.thoughtbot.com/align-github-flavored-markdown-tables-in-vim
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>

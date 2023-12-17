@@ -16,3 +16,4 @@
 /* #include ".Xresources.d/themes/marrakesh.xresources" */
 #include ".Xresources.d/themes/gruvbox-dark.xresources"
 #include ".Xresources.d/themes/gruvbox-urxvt256.xresources"
+Xft.dpi: 144

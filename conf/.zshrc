@@ -66,6 +66,12 @@ if command -v fd >/dev/null; then
     unalias fd
 fi
 
+if command -v lt >/dev/null; then
+    # lt is a program, so don't let common-aliases clobber it!
+    # https://github.com/sharkdp/fd
+    unalias lt
+fi
+
 # Enable mass, easy renaming... Why isn't this a default
 # http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
 #   mmv *.dat *.dat_old
@@ -196,3 +202,5 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+. /opt/asdf-vm/asdf.sh
