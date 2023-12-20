@@ -8,15 +8,12 @@ PASSWORDFILE=~/.pw.json.gpg
 #     . ~/.pwrc
 # fi
 
-if [ "$1" == "get" ]
-then
-    gpg2 --batch --quiet --decrypt ${PASSWORDFILE} | jq ".$2" --raw-output
-elif [ "$1" == "set" ]
-then
-    echo "Not Implemented"
-    # jq '.pass="newpass"'
-elif [ "$1" == "del" ]
-then
-    echo "Not Implemented"
-    # jq 'del (.pass)'
+if [ "$1" == "get" ]; then
+  gpg2 --batch --quiet --decrypt ${PASSWORDFILE} | jq ".$2" --raw-output
+elif [ "$1" == "set" ]; then
+  echo "Not Implemented"
+  # jq '.pass="newpass"'
+elif [ "$1" == "del" ]; then
+  echo "Not Implemented"
+  # jq 'del (.pass)'
 fi

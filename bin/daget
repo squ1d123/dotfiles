@@ -23,6 +23,6 @@ echo "published: \"${PUBLISHED}\""
 echo "retrieved: \"${RETRIEVED}\""
 echo "---"
 echo $HTML |
-    hxselect -c ".gr-body .text" |
-    pandoc -t markdown -f html |
-    iconv -f utf-8 -t ascii//TRANSLIT
+  hxselect -c ".gr-body .text" |
+  pandoc -t markdown -f html |
+  iconv -f utf-8 -t ascii//TRANSLIT

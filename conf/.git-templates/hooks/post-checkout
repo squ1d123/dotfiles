@@ -5,12 +5,12 @@ NC='\033[0m'
 checkout_type=$3
 
 [[ $checkout_type == 1 ]] && checkout_type='branch' ||
-                            checkout_type='file' ;
+  checkout_type='file'
 
 if [[ $checkout_type = "branch" ]]; then
-    branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
-    branch_name_length=${#branch_name}
-    if [[ $branch_name_length -gt 30 ]]; then
-        echo -e "${RED}Warning: Branch name ${NC}(${branch_name}) ${RED}contains more than 30 characters." && exit 1
-    fi
+  branch_name=$(git symbolic-ref --short HEAD 2>/dev/null)
+  branch_name_length=${#branch_name}
+  if [[ $branch_name_length -gt 30 ]]; then
+    echo -e "${RED}Warning: Branch name ${NC}(${branch_name}) ${RED}contains more than 30 characters." && exit 1
+  fi
 fi

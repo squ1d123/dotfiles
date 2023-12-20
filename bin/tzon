@@ -9,18 +9,21 @@
 
 TS=+'%Y-%m-%d %a %H:%M'
 
-printline() { COMMENT=${@:2}; export TZ=$1; echo -n $(date "${TS}"); printf " - %-20s (%s)\n" "$COMMENT" $1; }
+printline() {
+  COMMENT=${@:2}
+  export TZ=$1
+  echo -n $(date "${TS}")
+  printf " - %-20s (%s)\n" "$COMMENT" $1
+}
 printall() {
-    while read -r line
-    do
-        printline $line
-    done < $1
-    # Also print yourself
-    printline $(cat /etc/timezone) $(whoami)
+  while read -r line; do
+    printline $line
+  done <$1
+  # Also print yourself
+  printline $(cat /etc/timezone) $(whoami)
 }
 if [ "$#" -ne 0 ]; then
-    printall ~/.tzonrc | sort | grep -iE --color $@
+  printall ~/.tzonrc | sort | grep -iE --color $@
 else
-    printall ~/.tzonrc | sort
+  printall ~/.tzonrc | sort
 fi
-

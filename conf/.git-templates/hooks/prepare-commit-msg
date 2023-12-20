@@ -5,22 +5,20 @@
 # It adds the branch name to the commit message, if it is not already part of it.
 
 branchPath=$(git symbolic-ref -q HEAD) #Somthing like refs/heads/myBranchName
-branchName=${branchPath##*/}      #Get text behind the last / of the branch path
+branchName=${branchPath##*/}           #Get text behind the last / of the branch path
 
 regex="([a-z]+-[0-9]*)"
 
-if [[ $branchName =~ $regex ]]
-then
-    # Get the captured portion of the branch name.
-    jiraTicketName="${BASH_REMATCH[1]^^}"
+if [[ $branchName =~ $regex ]]; then
+  # Get the captured portion of the branch name.
+  jiraTicketName="${BASH_REMATCH[1]^^}"
 
-    originalMessage=$(cat "$1")
+  originalMessage=$(cat "$1")
 
-    # If the message already begins with PROJECTNAME-#, do not edit the commit message.
-    if [[ $originalMessage == $jiraTicketName* ]]
-        then
-        exit
-    fi
+  # If the message already begins with PROJECTNAME-#, do not edit the commit message.
+  if [[ $originalMessage == $jiraTicketName* ]]; then
+    exit
+  fi
 
-    sed -i "1s/^/$jiraTicketName /" "$1" #Insert branch name at the start of the commit message file
+  sed -i "1s/^/$jiraTicketName /" "$1" #Insert branch name at the start of the commit message file
 fi
