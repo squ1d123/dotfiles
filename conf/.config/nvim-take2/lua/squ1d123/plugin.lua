@@ -28,6 +28,8 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
+  -- nice notifications
+  "j-hui/fidget.nvim",
 
   -- Surrond support
   'tpope/vim-surround',
@@ -220,6 +222,9 @@ require('lazy').setup({
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
-  }
+  },
+
+  -- Format on save
+  { "elentok/format-on-save.nvim" },
 
 })
