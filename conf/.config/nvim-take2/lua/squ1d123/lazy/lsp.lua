@@ -117,6 +117,29 @@ return {
         root_dir = nvim_lsp.util.root_pattern("package.json"),
         single_file_support = false
       }
+
+      -- Set up yaml schemas
+      nvim_lsp.yamlls.setup {
+        settings = {
+          yaml = {
+            format = {
+              enable = true
+            },
+            schemaStore = {
+              url = "https://www.schemastore.org/api/json/catalog.json",
+              enable = true,
+            },
+            schemas = {
+              -- Support gitlab-ci yaml schema
+              ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = ".gitlab-ci.yml",
+              ["https://github.com/derailed/k9s/raw/763a6b0e000da9d78b01662dece08cd379ba7240/internal/config/json/schemas/hotkeys.json"] = "hotkeys.yaml",
+              -- Custom workload schemas
+              ["./templates/main/workload.schema.json"] = "workload.yaml",
+              ["./templates/system/namespace.schema.json"] = "namespace.yaml",
+            }
+          }
+        }
+      }
     end
   },
 }

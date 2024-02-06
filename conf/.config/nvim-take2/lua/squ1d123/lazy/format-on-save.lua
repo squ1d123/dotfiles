@@ -11,6 +11,7 @@ return {
       },
       formatter_by_ft = {
         terraform = formatters.lsp,
+        go = formatters.lsp,
       }
     })
   end

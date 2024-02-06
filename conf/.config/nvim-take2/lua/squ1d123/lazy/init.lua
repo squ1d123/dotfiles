@@ -1,4 +1,6 @@
 return {
+  -- "jiangmiao/auto-pairs",
+
   "j-hui/fidget.nvim",
 
   -- Surrond support
