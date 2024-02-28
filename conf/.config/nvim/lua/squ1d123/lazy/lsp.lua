@@ -118,6 +118,16 @@ return {
         single_file_support = false
       }
 
+      nvim_lsp.helm_ls.setup {
+        settings = {
+          ['helm-ls'] = {
+            yamlls = {
+              path = CONFIG_PATH .. "/mason/bin/yaml-language-server",
+            }
+          }
+        }
+      }
+
       -- Set up yaml schemas
       nvim_lsp.yamlls.setup {
         settings = {

@@ -1,4 +1,8 @@
 return {
+
+  "towolf/vim-helm",
+
+  -- Currently breaks nvim
   -- "jiangmiao/auto-pairs",
 
   "j-hui/fidget.nvim",
