@@ -22,6 +22,10 @@ return {
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
+
+      -- Useful status updates for LSP.
+      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+      { 'j-hui/fidget.nvim', opts = {} },
     },
 
     config = function()
@@ -30,20 +34,35 @@ return {
 
       lsp_zero.on_attach(function(client, bufnr)
         local opts = { buffer = bufnr, remap = false }
-
-        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-        vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts,
-          { desc = 'Open floating diagnostic message' })
-        vim.keymap.set('n', '<leader>vl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-        vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts,
-          { desc = 'Go to next diagnostic message' })
-        vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts,
-          { desc = 'Go to previous diagnostic message' })
-        vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-        vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+        local map = function(keys, func, desc)
+          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
+        end
+        -- Jump to the definition of the word under your cursor.
+        --  This is where a variable was first declared, or where a function is defined, etc.
+        --  To jump back, press <C-T>.
+        map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+        -- Find references for the word under your cursor.
+        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        -- Jump to the implementation of the word under your cursor.
+        --  Useful when your language has ways of declaring types without an actual implementation.
+        map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+        -- Opens a popup that displays documentation about the word under your cursor
+        --  See `:help K` for why this keymap
+        map('K', vim.lsp.buf.hover, 'Hover Documentation')
+        -- Fuzzy find all the symbols in your current workspace
+        --  Similar to document symbols, except searches over your whole project.
+        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        -- Execute a code action, usually your cursor needs to be on top of an error
+        -- or a suggestion from your LSP for this to activate.
+        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        -- Rename the variable under your cursor
+        --  Most Language Servers support renaming across files, etc.
+        map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+        -- Diagnostic keymaps
+        map("<leader>vd", vim.diagnostic.open_float, 'Open floating diagnostic message')
+        map('<leader>vl', vim.diagnostic.setloclist, 'Open diagnostics list')
+        map("[d", vim.diagnostic.goto_next, 'Go to next diagnostic message')
+        map("]d", vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
       end)
 
@@ -52,6 +71,7 @@ return {
         ensure_installed = { 'lua_ls', 'tsserver', 'rust_analyzer', 'marksman' },
         handlers = {
           lsp_zero.default_setup,
+          jdtls = lsp_zero.noop,
           lua_ls = function()
             local lua_opts = lsp_zero.nvim_lua_ls()
             require('lspconfig').lua_ls.setup(lua_opts)
@@ -69,6 +89,8 @@ return {
           { name = 'nvim_lsp' },
           { name = 'nvim_lua' },
           { name = 'luasnip' },
+          { name = "cody" },
+          { name = "codeium" },
         },
         formatting = lsp_zero.cmp_format(),
         mapping = cmp.mapping.preset.insert({
@@ -77,26 +99,26 @@ return {
           ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
           ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
           ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
           -- Support simply tabing to go through completions list
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
+          -- ['<Tab>'] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_next_item()
+          --   elseif luasnip.expand_or_locally_jumpable() then
+          --     luasnip.expand_or_jump()
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
+          -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_prev_item()
+          --   elseif luasnip.locally_jumpable(-1) then
+          --     luasnip.jump(-1)
+          --   else
+          --     fallback()
+          --   end
+          -- end, { 'i', 's' }),
           ['<C-Space>'] = cmp.mapping.complete(),
         }),
       })
@@ -108,7 +130,10 @@ return {
 
       local nvim_lsp = require('lspconfig')
       nvim_lsp.denols.setup {
-        -- on_attach = on_attach,
+        on_attach = function(_, bufnr)
+          -- Overriding due to https://github.com/nvim-telescope/telescope.nvim/issues/2768
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "[G]oto [D]efinition" })
+        end,
         root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
       }
 
@@ -122,7 +147,7 @@ return {
         settings = {
           ['helm-ls'] = {
             yamlls = {
-              path = CONFIG_PATH .. "/mason/bin/yaml-language-server",
+              path = "yaml-language-server"
             }
           }
         }
@@ -150,6 +175,18 @@ return {
           }
         }
       }
+
+      nvim_lsp.tailwindcss.setup({
+        filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+        init_options = { userLanguages = { templ = "html" } },
+      })
+
+      nvim_lsp.html.setup({
+        filetypes = { "html", "templ" },
+      })
+
+      -- Adds support for templ
+      vim.filetype.add({ extension = { templ = "templ" } })
     end
   },
 }

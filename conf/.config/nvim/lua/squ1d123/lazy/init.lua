@@ -1,11 +1,14 @@
 return {
+  -- plugin for java development
+  "mfussenegger/nvim-jdtls",
+
+  -- ansible auto filetype detection
+  "pearofducks/ansible-vim",
 
   "towolf/vim-helm",
 
   -- Currently breaks nvim
   -- "jiangmiao/auto-pairs",
-
-  "j-hui/fidget.nvim",
 
   -- Surrond support
   'tpope/vim-surround',

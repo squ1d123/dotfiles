@@ -45,6 +45,6 @@ return {
         previewer = false,
       })
     end, { desc = '[/] Fuzzily search in current buffer' })
-    vim.keymap.set('n', 'gI', builtin.lsp_implementations, {desc = "[G]oto [I]mplementation"})
+    vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
   end
 }

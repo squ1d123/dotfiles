@@ -12,6 +12,12 @@ return {
       formatter_by_ft = {
         terraform = formatters.lsp,
         go = formatters.lsp,
+        ps1 = formatters.lsp,
+        templ = {
+          formatters.shell({
+            cmd = { "templ", "fmt" }
+          })
+        }
       }
     })
   end
