@@ -20,4 +20,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup("squ1d123.lazy")
+require('lazy').setup("squ1d123.lazy", {
+  change_detection = {
+    notify = false,
+  },
+})

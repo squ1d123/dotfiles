@@ -27,7 +27,7 @@ return {
             -- set me navigate to next/previous with Ctrl-j/k
             ["<C-j>"] = require('telescope.actions').move_selection_next,
             ["<C-k>"] = require('telescope.actions').move_selection_previous,
-          }
+          },
         }
       },
     }

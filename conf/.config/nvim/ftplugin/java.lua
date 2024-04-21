@@ -3,8 +3,6 @@ local workspace_path = home .. '/.local/share/nvim/jdtls-workspace/'
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspace_dir = workspace_path .. project_name
 
-print "starting after"
-
 local status, jdtls = pcall(require, 'jdtls')
 if not status then
     return

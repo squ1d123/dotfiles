@@ -1,4 +1,5 @@
 return {
+
   -- plugin for java development
   "mfussenegger/nvim-jdtls",
 

@@ -25,7 +25,9 @@ return {
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',                opts = {} },
+      -- To support proper Goto Definition
+      { 'Hoffs/omnisharp-extended-lsp.nvim' },
     },
 
     config = function()
@@ -135,6 +137,18 @@ return {
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "[G]oto [D]efinition" })
         end,
         root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+      }
+
+      nvim_lsp.omnisharp.setup {
+        on_attach = function(_, bufnr)
+          -- Overriding due to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#omnisharp
+          -- https://github.com/Hoffs/omnisharp-extended-lsp.nvim
+          local omni_extended = require('omnisharp_extended')
+
+          vim.keymap.set("n", "gd", omni_extended.telescope_lsp_definition, { buffer = bufnr, desc = "[G]oto [D]efinition" })
+          vim.keymap.set("n", "gI", omni_extended.telescope_lsp_implementation, { buffer = bufnr, desc = "[G]oto [I]mplementation" })
+          vim.keymap.set("n", "gr", omni_extended.telescope_lsp_references, { buffer = bufnr, desc = "[G]oto [R]eferences" })
+        end,
       }
 
       nvim_lsp.tsserver.setup {
