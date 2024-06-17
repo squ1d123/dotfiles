@@ -1,4 +1,9 @@
 return {
+  -- highlighting for logstash config files
+  "robbles/logstash.vim",
+
+  -- hide creds for env files
+  "laytan/cloak.nvim",
 
   -- plugin for java development
   "mfussenegger/nvim-jdtls",

@@ -20,10 +20,10 @@ end)
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -43,10 +43,16 @@ vim.keymap.set("n", "<leader>ee", [[iif err != nil {<CR><CR>}<ESC><Up>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Open up dotfiles
-vim.keymap.set("n", "<leader>fed", "<cmd>silent !tmux neww tmux-sessionizer ~/.config/nvim-take2<CR>", { silent = true,})
+vim.keymap.set("n", "<leader>fed", "<cmd>silent !tmux neww tmux-sessionizer ~/.config/nvim-take2<CR>", { silent = true, })
 
 -- Jump back to previous buffer
 vim.keymap.set("n", "<leader><TAB>", ":e#<CR>")
 
 -- Paste without auto-indent problems
 vim.keymap.set("n", "<leader>op", ":set invpaste paste?<CR>")
+
+-- Toggle spellcheck
+vim.keymap.set("n", "<leader>ts", ":set spell!<CR>", { desc = "Toggle spell check" })
+
+-- Toggle gitlab code Suggestions
+vim.keymap.set('n', '<leader>tg', '<Plug>(GitLabToggleCodeSuggestions)', { desc = 'Toggle GitLab Code Suggestions' })
