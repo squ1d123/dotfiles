@@ -161,6 +161,7 @@ return {
         settings = {
           ['helm-ls'] = {
             yamlls = {
+              enabled = false,
               path = "yaml-language-server"
             }
           }

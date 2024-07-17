@@ -11,7 +11,12 @@ return {
   -- ansible auto filetype detection
   "pearofducks/ansible-vim",
 
-  "towolf/vim-helm",
+  {
+    "towolf/vim-helm",
+    -- https://github.com/neovim/nvim-lspconfig/issues/2252#issuecomment-2198825338
+    -- prevents attachment and sorts out the yamlls errors on helm files
+    ft = 'helm'
+  },
 
   -- Currently breaks nvim
   -- "jiangmiao/auto-pairs",
