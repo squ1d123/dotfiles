@@ -5,6 +5,7 @@ return {
   -- hide creds for env files
   "laytan/cloak.nvim",
 
+  "ThePrimeagen/vim-be-good",
   -- plugin for java development
   "mfussenegger/nvim-jdtls",
 

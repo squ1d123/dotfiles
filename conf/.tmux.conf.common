@@ -84,6 +84,12 @@ bind-key -r C-n swap-window -t +1
 # reload ~/.tmux.conf using PREFIX R
 bind-key R source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf."
 
+# forget the find window.  That is for chumps
+bind-key -r f run-shell "tmux neww ~/bin/tmux-sessionizer"
+
+# shortcut for jumping into nvim config
+bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles"
+
 # maintain pwd when splitting pane
 
 if-shell "tmux -V | head -1 | awk '{exit !($2 > \"2.1\")}'" \
