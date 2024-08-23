@@ -145,9 +145,9 @@ return {
           -- https://github.com/Hoffs/omnisharp-extended-lsp.nvim
           local omni_extended = require('omnisharp_extended')
 
-          vim.keymap.set("n", "gd", omni_extended.telescope_lsp_definition, { buffer = bufnr, desc = "[G]oto [D]efinition" })
-          vim.keymap.set("n", "gI", omni_extended.telescope_lsp_implementation, { buffer = bufnr, desc = "[G]oto [I]mplementation" })
-          vim.keymap.set("n", "gr", omni_extended.telescope_lsp_references, { buffer = bufnr, desc = "[G]oto [R]eferences" })
+          vim.keymap.set("n", "gd", omni_extended.telescope_lsp_definition, { buffer = bufnr, desc = "OMNI: [G]oto [D]efinition" })
+          vim.keymap.set("n", "gI", omni_extended.telescope_lsp_implementation, { buffer = bufnr, desc = "OMNI: [G]oto [I]mplementation" })
+          vim.keymap.set("n", "gr", omni_extended.telescope_lsp_references, { buffer = bufnr, desc = "OMNI: [G]oto [R]eferences" })
         end,
       }
 
