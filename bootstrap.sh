@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+if [ -n "${TRACE:-}" ]; then
+  set -x
+fi
 
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
@@ -20,7 +24,7 @@ git_update() {
         git pull --rebase --stat origin master
     )
   else
-    git clone $1 $2;
+    git clone --depth 1 "$1" "$2";
   fi
 }
 
@@ -31,6 +35,7 @@ usage() {
   echo "Usage:"
   echo "  all           Do everything!"
   echo "  install       Install commonly used software"
+  echo "  git           Install commonly used git repos"
   echo "  configure     Configure installed software"
   echo "  link          Link configs with stow"
   echo "  unlink        Unlink configs with stow"
@@ -97,6 +102,7 @@ install_git() {
   git_update https://github.com/zsh-users/antigen.git   ~/.antigen
   mkdir -p ~/.tmux/plugins
   git_update https://github.com/tmux-plugins/tpm        ~/.tmux/plugins/tpm
+  git_update https://github.com/junegunn/fzf.git        ~/.fzf
   # git_update https://github.com/syl20bnr/spacemacs      ~/.emacs.d
 }
 
@@ -104,17 +110,18 @@ configure() {
   git config --global core.excludesfile ~/.gitignore_global
 
   # set zsh as the default shell
-  sudo chsh -s /bin/zsh $USER
+  sudo chsh -s /bin/zsh "$USER"
+  ~/.fzf/install
 
   # TODO Install stderred.
 }
 
 link() {
-  stow -d $SCRIPTPATH -vt ~ conf
+  stow -d "$SCRIPTPATH" -vt ~ conf
 }
 
 unlink() {
-  stow -d $SCRIPTPATH -vDt ~ conf
+  stow -d "$SCRIPTPATH" -vDt ~ conf
 }
 
 # -----------------------------------------------
