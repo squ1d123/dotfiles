@@ -19,12 +19,12 @@ git_update() {
   echo "git_update $1 $2..."
   if [ -d "$2" ]; then
     (
-        cd "$2"
-        # Pull down the latest master and replay our changes on top.
-        git pull --rebase --stat origin master
+      cd "$2"
+      # Pull down the latest master and replay our changes on top.
+      git pull --rebase --stat origin master
     )
   else
-    git clone --depth 1 "$1" "$2";
+    git clone --depth 1 "$1" "$2"
   fi
 }
 
@@ -54,31 +54,31 @@ install_pkg() {
       # returns a string like "Fedora" or "Ubuntu" or "Debian"
       # DISTRO=`lsb_release -i | cut -d: -f 2 | tr -d '[:space:]'`
       # DISTRO=`lsb_release -i | cut -f 2`
-      DIST=$(cat /etc/*release | grep -E "^ID=.*" | cut -d= -f 2 | sed "s/\"//g" )
+      DIST=$(cat /etc/*release | grep -E "^ID=.*" | cut -d= -f 2 | sed "s/\"//g")
 
       case $DIST in
-          "rhel")
-              PKGMAN="yum install"
-              SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python36-neovim"
-              ;;
-          "ubuntu")
-              PKGMAN="apt-get install"
-              SOFTWARE="$SOFTWARE build-essential dict silversearcher-ag ack-grep dictd dict-gcide vim neovim"
-              ;;
-          "manjaro")
-              ;& 
-          "arch")
-              PKGMAN="pacman -S"
-              SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python-pynvim"
-              ;;
-          *)
-              echo "Unknown DIST: $DIST"
-              exit
+        "rhel")
+          PKGMAN="yum install"
+          SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python36-neovim"
+          ;;
+        "ubuntu")
+          PKGMAN="apt-get install"
+          SOFTWARE="$SOFTWARE build-essential dict silversearcher-ag ack-grep dictd dict-gcide vim neovim"
+          ;;
+        "manjaro") ;&
+        "arch")
+          PKGMAN="pacman -S"
+          SOFTWARE="$SOFTWARE the_silver_searcher vim neovim python-pynvim"
+          ;;
+        *)
+          echo "Unknown DIST: $DIST"
+          exit
+          ;;
       esac
       ;;
     "Darwin")
-        PKGMAN="brew install"
-        SOFTWARE="$SOFTWARE the_silver_searcher vim neovim"
+      PKGMAN="brew install"
+      SOFTWARE="$SOFTWARE the_silver_searcher vim neovim"
       ;;
     "FreeBSD")
       PKGMAN="pkg install"
@@ -98,11 +98,11 @@ install_pkg() {
 }
 
 install_git() {
-  git_update https://github.com/sickill/stderred.git    ~/.stderred
-  git_update https://github.com/zsh-users/antigen.git   ~/.antigen
+  git_update https://github.com/sickill/stderred.git ~/.stderred
+  git_update https://github.com/zsh-users/antigen.git ~/.antigen
   mkdir -p ~/.tmux/plugins
-  git_update https://github.com/tmux-plugins/tpm        ~/.tmux/plugins/tpm
-  git_update https://github.com/junegunn/fzf.git        ~/.fzf
+  git_update https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  git_update https://github.com/junegunn/fzf.git ~/.fzf
   # git_update https://github.com/syl20bnr/spacemacs      ~/.emacs.d
 }
 
@@ -160,4 +160,3 @@ case $1 in
     usage
     ;;
 esac
-

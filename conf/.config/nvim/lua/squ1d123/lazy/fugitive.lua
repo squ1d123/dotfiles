@@ -3,7 +3,7 @@ return {
   config = function()
     vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-    local squ1d123_Fugitive = vim.api.nvim_create_augroup("ThePrimeagen_Fugitive", {})
+    local squ1d123_Fugitive = vim.api.nvim_create_augroup("squ1d123_Fugitive", {})
 
     -- merge function that takes functional approach
     local merge = function(a, b)
