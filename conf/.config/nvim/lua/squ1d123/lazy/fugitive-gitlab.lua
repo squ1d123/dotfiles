@@ -6,16 +6,14 @@ return {
 
     local command_name = "local-open"
 
-    if vim.fn.executable(command_name) then
-      print(command_name .. " is executable")
-    else
-      print(command_name .. " is not executable")
+    if vim.fn.executable(command_name) ~= 1 then
+      command_name = "xdg-open"
     end
 
     vim.api.nvim_create_user_command(
       'Browse',
       function(opts)
-        vim.fn.system { 'xdg-open', opts.fargs[1] }
+        vim.fn.system { command_name, opts.fargs[1] }
       end,
       { nargs = 1 }
     )
