@@ -11,11 +11,13 @@
 # }}}
 # General Settings---------------------------------------------------------- {{{
 
-set -g automatic-rename "off"
+set -g automatic-rename "on"
 set -g allow-rename "off"
 set -g base-index 1
 set -g default-terminal "screen-256color"
 set -g renumber-windows "on"
+# Increase the maximum allowed size of the status line
+set -g status-left-length 40
 
 # Enable continuum, which does automatic saving and reloading
 set -g @plugin 'tmux-plugins/tmux-resurrect'
@@ -86,6 +88,16 @@ bind-key R source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf."
 
 if-shell "tmux -V | head -1 | awk '{exit !($2 > \"2.1\")}'" \
     "bind '\"' split-window -c \"#{pane_current_path}\" ; bind % split-window -h -c \"#{pane_current_path}\" ; bind c new-window -c \"#{pane_current_path}\" ; "
+
+# forget the find window.  That is for chumps
+bind-key -r f run-shell "tmux -vv neww ~/bin/tmux-sessionizer"
+# Set shorcuts to instantly jump to common dirs
+bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles-fresh/conf/.config/nvim"
+bind-key -r J run-shell "~/bin/tmux-sessionizer ~/dev/devops/cli"
+bind-key -r K run-shell "~/bin/tmux-sessionizer ~/dev/fusion/platform/gitops"
+
+# Kill tmux session
+bind-key X run-shell 'tmux switch-client -n \; kill-session -t "#S"'
 
 # }}}
 # Theme -------------------------------------------------------------------- {{{

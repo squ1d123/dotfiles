@@ -44,11 +44,15 @@ bindkey '^[[1;5C' forward-word
 bindkey '^K' up-line-or-search
 bindkey '^J' down-line-or-search
 
+# Where should I put you?
+bindkey -s ^f "tmux-sessionizer^M"
+bindkey -s ^g "open-in-gitlab^M"
+
 ####################################################
 # exports
-alias ec='NVIM_APPNAME="nvim-take2" nvim'
+alias ec='nvim'
 
-export EDITOR='ec'
+export EDITOR='nvim'
 # Adding the below line lets emacsclient start emacs if it isn't already started
 # ...Intuitive, right?
 export ALTERNATE_EDITOR=''
@@ -120,7 +124,7 @@ alias grebase='git fetch && git rebase -i origin/master'
 # Kubes
 alias kb='kubectl'
 alias dk='docker'
-alias dc='docker-compose'
+alias dc='docker compose'
 
 ####################################################
 # vi mode
@@ -204,5 +208,3 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-
-. /opt/asdf-vm/asdf.sh

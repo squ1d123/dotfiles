@@ -70,7 +70,7 @@ return {
 
       require('mason').setup({})
       require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'tsserver', 'rust_analyzer', 'marksman' },
+        ensure_installed = { 'lua_ls', 'ts_ls', 'marksman', 'bashls', 'gopls' },
         handlers = {
           lsp_zero.default_setup,
           jdtls = lsp_zero.noop,
@@ -151,7 +151,7 @@ return {
         end,
       }
 
-      nvim_lsp.tsserver.setup {
+      nvim_lsp.ts_ls.setup {
         -- on_attach = on_attach,
         root_dir = nvim_lsp.util.root_pattern("package.json"),
         single_file_support = false
