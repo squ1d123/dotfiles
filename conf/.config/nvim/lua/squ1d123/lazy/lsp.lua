@@ -60,6 +60,10 @@ return {
         -- Rename the variable under your cursor
         --  Most Language Servers support renaming across files, etc.
         map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+        -- Jump to the type of the word under your cursor.
+        --  Useful when you're not sure what type a variable is and you want to see
+        --  the definition of its *type*, not where it was *defined*.
+        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
         -- Diagnostic keymaps
         map("<leader>vd", vim.diagnostic.open_float, 'Open floating diagnostic message')
         map('<leader>vl', vim.diagnostic.setloclist, 'Open diagnostics list')
@@ -145,9 +149,12 @@ return {
           -- https://github.com/Hoffs/omnisharp-extended-lsp.nvim
           local omni_extended = require('omnisharp_extended')
 
-          vim.keymap.set("n", "gd", omni_extended.telescope_lsp_definition, { buffer = bufnr, desc = "OMNI: [G]oto [D]efinition" })
-          vim.keymap.set("n", "gI", omni_extended.telescope_lsp_implementation, { buffer = bufnr, desc = "OMNI: [G]oto [I]mplementation" })
-          vim.keymap.set("n", "gr", omni_extended.telescope_lsp_references, { buffer = bufnr, desc = "OMNI: [G]oto [R]eferences" })
+          vim.keymap.set("n", "gd", omni_extended.telescope_lsp_definition,
+            { buffer = bufnr, desc = "OMNI: [G]oto [D]efinition" })
+          vim.keymap.set("n", "gI", omni_extended.telescope_lsp_implementation,
+            { buffer = bufnr, desc = "OMNI: [G]oto [I]mplementation" })
+          vim.keymap.set("n", "gr", omni_extended.telescope_lsp_references,
+            { buffer = bufnr, desc = "OMNI: [G]oto [R]eferences" })
         end,
       }
 

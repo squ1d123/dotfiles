@@ -35,18 +35,19 @@ return {
     require('telescope').load_extension('fzf')
 
     local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "[P]roject [Files]" })
+    vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = "[S]earch [Files]" })
     vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-    vim.keymap.set('n', '<leader>ps', function()
+    vim.keymap.set('n', '<leader>sg', function()
       builtin.grep_string({ search = vim.fn.input("Grep > ") })
-    end)
+    end, { desc = "[S]earch [G]rep" })
     vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
     vim.keymap.set('n', '<leader>/', function()
       require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         winblend = 10,
-        previewer = false,
+        previewer = true,
       })
     end, { desc = '[/] Fuzzily search in current buffer' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+    vim.keymap.set('n', '<leader>sr', builtin.registers, { desc = '[S]earch [R]egisters' })
   end
 }
