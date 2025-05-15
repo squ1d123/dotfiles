@@ -1,7 +1,8 @@
 return {
   'tpope/vim-fugitive',
   config = function()
-    vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+    vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open [G]it [S]tatus" })
+    vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Open [G]it [Blame]" })
 
     local squ1d123_Fugitive = vim.api.nvim_create_augroup("squ1d123_Fugitive", {})
 
