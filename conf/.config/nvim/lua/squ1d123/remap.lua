@@ -52,5 +52,6 @@ vim.keymap.set("n", "<leader>op", ":set invpaste paste?<CR>")
 -- Toggle spellcheck
 vim.keymap.set("n", "<leader>ts", ":set spell!<CR>", { desc = "Toggle spell check" })
 
--- Toggle gitlab code Suggestions
-vim.keymap.set('n', '<leader>tg', '<Plug>(GitLabToggleCodeSuggestions)', { desc = 'Toggle GitLab Code Suggestions' })
+-- LSP shortcuts
+vim.keymap.set('n', '<leader>lr', ':LspRestart<CR>', { desc = 'Restart LSP' })
+vim.keymap.set('n', '<leader>li', ':LspInfo<CR>', { desc = 'Show LSP info' })
