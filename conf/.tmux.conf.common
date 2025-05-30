@@ -20,10 +20,10 @@ set -g renumber-windows "on"
 set -g status-left-length 40
 
 # Enable continuum, which does automatic saving and reloading
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-restore 'on'
-set -g @continuum-boot "on"
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+# set -g @continuum-restore 'on'
+# set -g @continuum-boot "on"
 
 setw -g mode-keys vi
 
@@ -88,7 +88,9 @@ bind-key R source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf."
 bind-key -r f run-shell "tmux neww ~/bin/tmux-sessionizer"
 
 # shortcut for jumping into nvim config
-bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles"
+bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles/conf/.config/nvim"
+
+bind-key X run-shell "tmux switch-client -n \\\; kill-session -t \"#S\""
 
 # maintain pwd when splitting pane
 
@@ -149,12 +151,6 @@ bind-key D run-shell 'tmux send-keys $(date +%F)'
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
-
-# Automatically save state of tmux, can also be manually invoked with
-# - prefix + Ctrl-s for saving
-# - prefix + Ctrl-r for restoring
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'

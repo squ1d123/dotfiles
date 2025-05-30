@@ -26,6 +26,8 @@ antigen theme pygmalion
 
 antigen bundle vi-mode
 
+antigen bundle chisui/zsh-nix-shell
+
 # Note that as soon as this line happens, a lot of stuff is lost (Old keybinds, etc)
 antigen apply
 
@@ -60,7 +62,7 @@ export ALTERNATE_EDITOR=''
 # Make 777 stuff readable in ls
 export LS_COLORS='ow=01;30;42'
 
-export PATH="${PATH}:/${HOME}/bin:${HOME}/go/bin:${HOME}/.local/bin"
+export PATH="${HOME}/bin:${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
 
 ####################################################
 # CUSTOM ALIASES
@@ -74,7 +76,7 @@ fi
 if command -v lt >/dev/null; then
     # lt is a program, so don't let common-aliases clobber it!
     # https://github.com/sharkdp/fd
-    unalias lt
+    # unalias lt
 fi
 
 # Enable mass, easy renaming... Why isn't this a default
@@ -205,6 +207,20 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+# add asdf shims to path and install completions
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+# append completions to fpath
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+
+. ~/.asdf/plugins/java/set-java-home.zsh
+
+# Decorate prompt to know when inside a nix-shell env
+nix_shell_active() {
+  [[ -n "$IN_NIX_SHELL" ]]
+}
+
+current_prompt="$PROMPT"
+PROMPT=$(nix_shell_active && echo "(nix)$PROMPT" || echo "$current_prompt")
