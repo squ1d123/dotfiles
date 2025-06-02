@@ -6,9 +6,12 @@
     ],
   "modules-center": ["clock"],
   "modules-right": [
+    "custom/updates",
     "pulseaudio",
     "battery",
     "network",
+    "custom/fan",
+    "temperature",
     "cpu",
     "memory",
     "tray",
@@ -37,6 +40,12 @@
     "interval": 5,
     "tooltip": false
   },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["󱃃", "󰔏", "󱃂"],
+    "on-click": "alacritty -e s-tui"
+  },
   "cpu": {
     "interval": 1,
     "format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
@@ -53,6 +62,21 @@
       "default": ["", "", " "]
     },
     "on-click": "pavucontrol"
+  },
+  "custom/fan": {
+    "format": " {}",
+    "exec": "fw-fanctrl print | grep Speed | awk '{print $2}'",
+    "interval": 10,
+    "signal": 8,
+    "tooltip": false
+  },
+  "custom/updates": {
+    "format": "󰚰 {}",
+    "exec": "checkupdates | wc -l",
+    "interval": 3600,
+    "on-click": "alacritty -e sudo pacman -Syu",
+    "signal": 8,
+    "tooltip": false
   },
   "custom/lock": {
     "tooltip": false,
