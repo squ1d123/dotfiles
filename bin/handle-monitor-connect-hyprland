@@ -1,0 +1,15 @@
+#!/bin/sh
+
+handle() {
+  case $1 in monitoradded*)
+    hyprctl dispatch moveworkspacetomonitor "1 1"
+    hyprctl dispatch moveworkspacetomonitor "2 1"
+    hyprctl dispatch moveworkspacetomonitor "3 1"
+    hyprctl dispatch moveworkspacetomonitor "4 1"
+    hyprctl dispatch moveworkspacetomonitor "5 2"
+    hyprctl dispatch moveworkspacetomonitor "7 1"
+  esac
+}
+
+# Requites socat to be installed `sudo pacman -S socat`
+socat - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock" | while read -r line; do handle "$line"; done
