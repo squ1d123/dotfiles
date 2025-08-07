@@ -101,8 +101,8 @@ return {
           -- Diagnostic keymaps
           map("<leader>vd", vim.diagnostic.open_float, 'Open floating diagnostic message')
           map('<leader>vl', vim.diagnostic.setloclist, 'Open diagnostics list')
-          map("[d", function() vim.diagnostic.jump({count=1, float=true}) end, 'Go to next diagnostic message')
-          map("]d", function() vim.diagnostic.jump({count=-1, float=true}) end, 'Go to previous diagnostic message')
+          map("[d", function() vim.diagnostic.jump({ count = 1, float = true }) end, 'Go to next diagnostic message')
+          map("]d", function() vim.diagnostic.jump({ count = -1, float = true }) end, 'Go to previous diagnostic message')
           map("<C-h>", function() vim.lsp.buf.signature_help() end, "Show signature help", "i")
         end
       })
@@ -134,5 +134,16 @@ return {
     end
   },
 
-  vim.lsp.enable({ "lua_ls", "denols", "ts_ls", "omnisharp", "helm_ls", "yamlls", "gopls" })
+  -- Enable the below LSP servers
+  vim.lsp.enable({
+    "lua_ls",
+    "denols",
+    "ts_ls",
+    "omnisharp",
+    "helm_ls",
+    "yamlls",
+    "gopls",
+    "bashls"
+  })
+
 }
