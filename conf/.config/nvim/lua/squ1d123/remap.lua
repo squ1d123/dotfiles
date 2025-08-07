@@ -54,4 +54,12 @@ vim.keymap.set("n", "<leader>ts", ":set spell!<CR>", { desc = "Toggle spell chec
 
 -- LSP shortcuts
 vim.keymap.set('n', '<leader>lr', ':LspRestart<CR>', { desc = 'Restart LSP' })
-vim.keymap.set('n', '<leader>li', ':LspInfo<CR>', { desc = 'Show LSP info' })
+vim.keymap.set('n', '<leader>li', ':checkhealth vim.lsp<CR>', { desc = 'Show LSP info' })
+
+
+-- turn off default lsp keymaps
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grt')
