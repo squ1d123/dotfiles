@@ -63,16 +63,8 @@ bind-key l select-pane -R
 # Access your last used window
 bind-key Tab last-window
 
-# Shift panes around windows
-# http://maciej.lasyk.info/2014/Nov/19/tmux-join-pane/
-bind-key S command-prompt -p "Join pane from:"  "join-pane -s '%%'"
-bind-key s command-prompt -p "Send pane to:"  "join-pane -t '%%'"
 # Break this pane off to a new window
 bind-key B break-pane -t :
-
-# Shift windows around sessions
-# This is a default key! PREFIX .
-# bind-key S command-prompt -p "Send window to:"  "move-window -t '%%'"
 
 # Make a sTicky window (Who actually uses clock mode?)
 bind-key t command-prompt -p "Stick window to:"  "link-window -t '%%'"
@@ -90,22 +82,12 @@ bind-key -r f run-shell "tmux neww ~/bin/tmux-sessionizer"
 # shortcut for jumping into nvim config
 bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles/conf/.config/nvim"
 
+# Kill tmux session
 bind-key X run-shell "tmux switch-client -n \\\; kill-session -t \"#S\""
 
 # maintain pwd when splitting pane
-
 if-shell "tmux -V | head -1 | awk '{exit !($2 > \"2.1\")}'" \
     "bind '\"' split-window -c \"#{pane_current_path}\" ; bind % split-window -h -c \"#{pane_current_path}\" ; bind c new-window -c \"#{pane_current_path}\" ; "
-
-# forget the find window.  That is for chumps
-bind-key -r f run-shell "tmux -vv neww ~/bin/tmux-sessionizer"
-# Set shorcuts to instantly jump to common dirs
-bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles-fresh/conf/.config/nvim"
-bind-key -r J run-shell "~/bin/tmux-sessionizer ~/dev/devops/cli"
-bind-key -r K run-shell "~/bin/tmux-sessionizer ~/dev/fusion/platform/gitops"
-
-# Kill tmux session
-bind-key X run-shell 'tmux switch-client -n \; kill-session -t "#S"'
 
 # }}}
 # Theme -------------------------------------------------------------------- {{{

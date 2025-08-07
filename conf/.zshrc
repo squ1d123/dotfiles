@@ -24,7 +24,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen theme pygmalion
 
-antigen bundle vi-mode
+antigen bundle jeffreytse/zsh-vi-mode
 
 antigen bundle chisui/zsh-nix-shell
 
@@ -34,21 +34,11 @@ antigen apply
 ####################################################
 # KEYBINDS
 
-# Fix key bindings in vi-mode
-source ~/.zshrc.vimode
-
 # Bindkeys - Can use `cat` and then press key combos to get codes for here
 # Ctrl + left/right to skip words
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
-# Ctrl + j/k to quickly go up/down (mimicks fzf controls)
-bindkey '^K' up-line-or-search
-bindkey '^J' down-line-or-search
-
-# Where should I put you?
-bindkey -s ^f "tmux-sessionizer^M"
-bindkey -s ^g "open-in-gitlab^M"
 
 ####################################################
 # exports
@@ -66,12 +56,6 @@ export PATH="${HOME}/bin:${HOME}/go/bin:${HOME}/.local/bin:${PATH}"
 
 ####################################################
 # CUSTOM ALIASES
-
-if command -v fd >/dev/null; then
-    # fd is a program, so don't let common-aliases clobber it!
-    # https://github.com/sharkdp/fd
-    unalias fd
-fi
 
 if command -v lt >/dev/null; then
     # lt is a program, so don't let common-aliases clobber it!
@@ -128,16 +112,6 @@ alias kb='kubectl'
 alias dk='docker'
 alias dc='docker compose'
 
-####################################################
-# vi mode
-# Notes from http://stratus3d.com/blog/2017/10/26/better-vi-mode-in-zshell/
-
-# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
-export KEYTIMEOUT=1
-
-bindkey -M vicmd "^V" edit-command-line
-bindkey -v
-
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
     zle reset-prompt
@@ -146,18 +120,32 @@ function zle-keymap-select() {
 
 zle -N zle-keymap-select
 
-function vi_mode_prompt_info() {
-    echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
+
+# ZVM VI MODE config
+ZVM_VI_HIGHLIGHT_BACKGROUND=#FFA500
+ZVM_VI_HIGHLIGHT_FOREGROUND=#000000
+
+# Define an init function and append to zvm_after_init_commands
+function my_init() {
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  bindkey "^V" edit-command-line
+
+  # Ctrl + j/k to quickly go up/down (mimicks fzf controls)
+  bindkey '^K' up-line-or-search
+  bindkey '^J' down-line-or-search
+  bindkey '^T' fzf-cd-widget
+
+  # Where should I put you?
+  bindkey -s ^f "tmux-sessionizer^M"
+  bindkey -s ^g "open-in-gitlab^M"
 }
 
-# define right prompt, regardless of whether the theme defined it
-RPS1='$(vi_mode_prompt_info)'
-RPS2=$RPS1
+zvm_after_init_commands+=(my_init)
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# kubectl auto completion
-bindkey "^V" edit-command-line
+# The plugin will auto execute this zvm_after_lazy_keybindings function
+function zvm_after_lazy_keybindings() {
+  zvm_bindkey vicmd "^V" edit-command-line
+}
 
 ####################################################
 # AUTO COMPLETION

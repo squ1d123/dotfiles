@@ -87,7 +87,7 @@ find_dirs() {
             path="$entry"
         fi
 
-        [[ -d "$path" ]] && find "$path" -mindepth 1 -maxdepth "${depth:-${TS_MAX_DEPTH:-1}}" -path '*/.git' -prune -o -type d -print
+        [[ -d "$path" ]] && find "$path" -mindepth 1 -maxdepth "${depth:-${TS_MAX_DEPTH:-1}}" -name .git -prune -type d | sed 's|\(.*\)\/\.git|\1|g'
     done
 }
 
@@ -105,15 +105,20 @@ if [[ "$selected" =~ ^\[TMUX\]\ (.+)$ ]]; then
     selected="${BASH_REMATCH[1]}"
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+selected_name="$(basename "$selected" | tr . _)"
+
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    short_hash=$(cksum <<< "$selected" | awk '{print $1}')
+    selected_name="$(basename "$selected" | tr . _)-$short_hash"
     tmux new-session -ds "$selected_name" -c "$selected"
     hydrate "$selected_name" "$selected"
 fi
 
 if ! has_session "$selected_name"; then
+    short_hash=$(cksum <<< "$selected" | awk '{print $1}')
+    selected_name="$(basename "$selected" | tr . _)-$short_hash"
     tmux new-session -ds "$selected_name" -c "$selected"
     hydrate "$selected_name" "$selected"
 fi
