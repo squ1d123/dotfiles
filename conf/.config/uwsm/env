@@ -1,0 +1,7 @@
+export PATH="$HOME/bin:$PATH"
+export TERMINAL=alacritty
+
+# Theming variables
+export XCURSOR_SIZE=24
+# sets dark mode for GTK apps
+export GTK_THEME=Adwaita:dark
