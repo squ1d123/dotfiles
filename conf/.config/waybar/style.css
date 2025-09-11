@@ -1,4 +1,9 @@
+@import "../current/theme/waybar.css";
+
 * {
+  background-color: @background;
+  color: @foreground;
+
   font-family: JetbrainsMono Nerd Font;
   font-size: 16px;
   min-height: 0;
@@ -45,6 +50,7 @@
   border-radius: 5px;
 }
 
+#custom-updates,
 #custom-music,
 #tray,
 #backlight,
@@ -53,8 +59,10 @@
 #pulseaudio,
 #network,
 #cpu,
+#temperature,
 #memory,
 #custom-lock,
+#custom-fan,
 #custom-power {
   background-color: #101010;
   padding: 0.5rem 1rem;

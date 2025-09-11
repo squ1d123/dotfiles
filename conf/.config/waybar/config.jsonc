@@ -32,7 +32,7 @@
     "timezone": "Europe/London",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%d/%m - %H:%M}",
-    "on-click": "brave --new-window https://calendar.google.com"
+    "on-click": "launch-webapp https://calendar.google.com"
   },
   "battery": {
     "format": "{icon}{capacity}%",

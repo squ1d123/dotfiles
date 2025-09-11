@@ -39,6 +39,38 @@ usage() {
   echo "  configure     Configure installed software"
   echo "  link          Link configs with stow"
   echo "  unlink        Unlink configs with stow"
+  echo "  theme         Setsup default theme"
+}
+
+setup_themes() {
+  themes_dir="$HOME/.config/themes"
+  if [ ! -d "$themes_dir" ]; then
+    echo "Themes directory ($themes_dir) does not exist."
+    echo "You must run $0 link first."
+    exit 1
+  fi
+  default_theme="matte-black"
+
+  echo "Setting up themes..."
+  echo "Setting default theme to $default_theme"
+
+  # Set initial theme
+  mkdir -p ~/.config/current
+  ln -snf ~/.config/themes/$default_theme ~/.config/current/theme
+  ln -snf ~/.config/current/theme/backgrounds/1-scenery-pink-lakeside-sunset-lake-landscape-scenic-panorama-7680x3215-144.png ~/.config/current/background
+
+  # Set specific app links for current theme
+  # Currently want to have different theme for neovim
+  # ln -snf ~/.config/current/theme/neovim.lua ~/.config/nvim/lua/plugins/theme.lua
+
+  mkdir -p ~/.config/btop/themes
+  ln -snf ~/.config/current/theme/btop.theme ~/.config/btop/themes/current.theme
+
+  # Not actually using mako for notifications currently, however if I do, this will be nice
+  mkdir -p ~/.config/mako
+  ln -snf ~/.config/current/theme/mako.ini ~/.config/mako/config
+
+  echo "theme setup complete."
 }
 
 install_pkg() {
@@ -94,7 +126,7 @@ install_pkg() {
   install_cmd="$PKGMAN $SOFTWARE"
   if [ "$OS" != "Darwin" ]; then install_cmd="sudo $install_cmd"; fi
   echo "$install_cmd"
-  exec $install_cmd
+  eval "$install_cmd"
 }
 
 install_git() {
@@ -138,6 +170,7 @@ case $1 in
     install_git
     configure
     link
+    setup_themes
     ;;
   "install")
     install_pkg
@@ -154,6 +187,9 @@ case $1 in
     ;;
   "git")
     install_git
+    ;;
+  "theme")
+    setup_themes
     ;;
   *)
     echo "Invalid command."
