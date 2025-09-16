@@ -63,6 +63,18 @@ if command -v lt >/dev/null; then
     # unalias lt
 fi
 
+# Use bat instead of cat
+if command -v bat >/dev/null; then
+    # If we ever need to use cat, prepend command with \cat
+    alias cat='bat'
+    # Use bat for help pages, this global alias lets us simply do `cp --help`
+    # and get a nicely formatted help page
+    alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+    alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+    # Use bat for man pages
+    export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"
+fi
+
 # Enable mass, easy renaming... Why isn't this a default
 # http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
 #   mmv *.dat *.dat_old
@@ -87,19 +99,8 @@ alias psg='ps aux | grep -i'
 # My git aliases
 
 # Git checkout, but lowercases new branch names
-function gco {
-    command='git checkout'
-    for ((i = 1; i <= $#; i++ )); do
-        if [ "${argv[i]}" = "-b" ]; then
-            ((i++))
-            command+=" -b ${argv[i]:l}"
-        else
-            command+=" ${argv[i]}"
-        fi
-    done
-    eval ${command}
-}
 
+alias gco='git checkout'
 alias gac='git add -u && git commit -m'
 alias gpush='git push'
 alias gpull='git pull --rebase'

@@ -8,10 +8,11 @@ if not status then
     return
 end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
+local java_cmd_path = home .. '/.asdf/installs/java/temurin-21.0.8+9.0.LTS/bin/java'
 
 local config = {
     cmd = {
-        'java',
+        java_cmd_path,
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',

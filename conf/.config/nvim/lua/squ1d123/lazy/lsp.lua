@@ -217,6 +217,9 @@ return {
     "gopls",
     "bashls",
     "terraformls",
+    "pylsp",
+    "lemminx",
+    "marksman",
   })
 
     end
