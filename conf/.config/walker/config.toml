@@ -1,7 +1,8 @@
+# Maybe I should think about themes, for now I'm just using the default
 close_when_open = true
-theme = "matte-black"
-theme_base = []
-theme_location = ["~/.local/share/default/walker/themes/"]
+# theme = "omarchy-default"
+# theme_base = []
+# theme_location = ["~/.local/share/omarchy/default/walker/themes/"]
 hotreload_theme = true
 force_keyboard_focus = true
 timeout = 60
