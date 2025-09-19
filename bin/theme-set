@@ -64,9 +64,9 @@ touch "$HOME/.config/alacritty/alacritty.toml"
 # Restart components to apply new theme
 pkill -SIGUSR2 btop
 restart-waybar
-# Not using mako or swayods for now, but maybe I want to later
+# Not using swayods for now, but maybe I want to later
 # restart-swayosd
-# makoctl reload
+makoctl reload
 hyprctl reload
 
 # Set new background
