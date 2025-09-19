@@ -49,19 +49,19 @@ setup_themes() {
     echo "You must run $0 link first."
     exit 1
   fi
-  default_theme="matte-black"
+  default_theme="omarchy-ayaka"
 
   echo "Setting up themes..."
   echo "Setting default theme to $default_theme"
 
   # Set initial theme
   mkdir -p ~/.config/current
-  ln -snf ~/.config/themes/$default_theme ~/.config/current/theme
+  ln -snf "~/.config/themes/$default_theme" ~/.config/current/theme
   ln -snf ~/.config/current/theme/backgrounds/1-scenery-pink-lakeside-sunset-lake-landscape-scenic-panorama-7680x3215-144.png ~/.config/current/background
 
   # Set specific app links for current theme
-  # Currently want to have different theme for neovim
-  # ln -snf ~/.config/current/theme/neovim.lua ~/.config/nvim/lua/plugins/theme.lua
+  # I don't want to change my theme for neovim, so I'm not linking this.
+  # ln -snf ~/.config/current/theme/neovim.lua ~/.config/nvim/lua/squ1d123/lazy/theme.lua
 
   mkdir -p ~/.config/btop/themes
   ln -snf ~/.config/current/theme/btop.theme ~/.config/btop/themes/current.theme
