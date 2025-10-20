@@ -7,6 +7,7 @@
   "modules-center": ["clock"],
   "modules-right": [
     "custom/updates",
+    "custom/chomecast-volume",
     "pulseaudio",
     "battery",
     "network",
@@ -88,6 +89,16 @@
     "tooltip": false,
     "on-click": "sh -c '(sleep 0.5s; hyprlock)' & disown",
     "format": ""
+  },
+  "custom/chomecast-volume": {
+    "tooltip": false,
+    "interval": 30,
+    "exec": "echo \"scale=0; $(go-chromecast -n 'Bedroom speaker' volume) * 100/1\" | bc | xargs printf '%s%%'",
+    "exec-if": "echo \"$(go-chromecast -n 'Bedroom speaker' status)\" | grep -qi 'playing'",
+    "on-scroll-up": "go-chromecast -n 'Bedroom speaker' volume-up",
+    "on-scroll-down": "go-chromecast -n 'Bedroom speaker' volume-down",
+    "on-click": "alacritty -e go-chromecast -n 'Bedroom speaker' ui",
+    "format": "G {}"
   }
 }
 
