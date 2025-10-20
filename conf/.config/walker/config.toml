@@ -1,11 +1,10 @@
-# Maybe I should think about themes, for now I'm just using the default
 close_when_open = true
-theme = "squ1d123-default"
+theme = "squ1d123"
 theme_base = []
-theme_location = ["~/.config/walker/themes"]
 hotreload_theme = true
 force_keyboard_focus = true
 timeout = 60
+additional_theme_location = "~/.config/walker/themes/"
 
 [keys.ai]
 run_last_response = ["ctrl e"]
