@@ -13,6 +13,8 @@ return {
         terraform = formatters.lsp,
         go = formatters.lsp,
         ps1 = formatters.lsp,
+        -- this does not work currently
+        -- nginx = formatters.shell({ cmd = { "nginxfmt", "%" } }),
         templ = {
           formatters.shell({
             cmd = { "templ", "fmt" }

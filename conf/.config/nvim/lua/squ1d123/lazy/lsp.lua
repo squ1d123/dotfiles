@@ -205,23 +205,38 @@ return {
 
       })
 
+      -- need to programatically set the root_markers as deno.lua is merged
+      -- with lspconfig which results in
+      -- root_markers = { 'deno.json', 'deno.jsonc', '.git' },
+      vim.lsp.config('denols', {
+        root_markers = { 'deno.json', 'deno.jsonc' },
+      })
 
-  -- Enable the below LSP servers
-  vim.lsp.enable({
-    "lua_ls",
-    "denols",
-    "ts_ls",
-    "omnisharp",
-    "helm_ls",
-    "yamlls",
-    "gopls",
-    "bashls",
-    "terraformls",
-    "pylsp",
-    "lemminx",
-    "marksman",
-  })
+      -- need to programatically set the root_markers as ts_ls.lua is merged
+      -- with lspconfig which results in
+      -- root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' }
+      vim.lsp.config('ts_ls', {
+        root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json' }
+      })
 
+      -- Enable the below LSP servers
+      vim.lsp.enable({
+        "lua_ls",
+        "denols",
+        "ts_ls",
+        "omnisharp",
+        "helm_ls",
+        "yamlls",
+        "gopls",
+        "bashls",
+        "terraformls",
+        "pylsp",
+        "lemminx",
+        "marksman",
+        "docker_language_server",
+        "jsonls",
+        "nginx_language_server"
+      })
     end
   },
 

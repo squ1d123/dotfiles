@@ -66,6 +66,9 @@ return {
     -- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
     redhat = { telemetry = { enabled = false } },
     yaml = {
+      customTags = {
+        "!reference sequence"
+      },
       format = {
         enable = true
       },

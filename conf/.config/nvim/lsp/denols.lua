@@ -94,6 +94,9 @@ return {
     ['textDocument/references'] = denols_handler,
   },
   on_attach = function(client, bufnr)
+    -- Override the default handler for textDocument/definition
+    -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr})
+
     vim.api.nvim_buf_create_user_command(bufnr, 'LspDenolsCache', function()
       client:exec_cmd({
         command = 'deno.cache',

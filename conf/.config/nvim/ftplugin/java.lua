@@ -8,7 +8,7 @@ if not status then
     return
 end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
-local java_cmd_path = home .. '/.asdf/installs/java/temurin-21.0.8+9.0.LTS/bin/java'
+local java_cmd_path = home .. '/.asdf/installs/java/temurin-25.0.0+36.0.LTS/bin/java'
 
 local config = {
     cmd = {
