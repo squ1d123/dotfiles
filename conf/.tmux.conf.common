@@ -80,7 +80,7 @@ bind-key R source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf."
 bind-key -r f run-shell "tmux neww ~/bin/tmux-sessionizer"
 
 # shortcut for jumping into nvim config
-bind-key -r H run-shell "~/bin/tmux-sessionizer ~/dotfiles/conf/.config/nvim"
+bind-key -r H run-shell "~/bin/tmux-sessionizer ~/personal/dotfiles/conf/.config/nvim"
 
 # Kill tmux session
 bind-key X run-shell "tmux switch-client -n \\\; kill-session -t \"#S\""
