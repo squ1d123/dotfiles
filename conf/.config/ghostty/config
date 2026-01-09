@@ -1,2 +1,4 @@
+config-file = ~/.config/current/theme/ghostty.conf
+
 background = 070709
-font-family = JetBrains Mono
+font-family = JetBrains Nerd Mono
