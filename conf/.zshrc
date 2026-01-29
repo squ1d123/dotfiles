@@ -196,15 +196,12 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-# add asdf shims to path and install completions
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
-# append completions to fpath
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+## mise ##
+eval "$(~/.local/bin/mise activate bash)"
+
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
-
-. ~/.asdf/plugins/java/set-java-home.zsh
 
 # Decorate prompt to know when inside a nix-shell env
 nix_shell_active() {
