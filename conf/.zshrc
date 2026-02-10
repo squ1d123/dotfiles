@@ -198,7 +198,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 
 ## mise ##
-eval "$(~/.local/bin/mise activate bash)"
+eval "$(~/.local/bin/mise activate zsh)"
 
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
