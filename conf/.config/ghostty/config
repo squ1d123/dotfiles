@@ -2,3 +2,4 @@ config-file = ~/.config/current/theme/ghostty.conf
 
 background = 070709
 font-family = JetBrains Nerd Mono
+font-size = 20
