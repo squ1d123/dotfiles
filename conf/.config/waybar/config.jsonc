@@ -30,7 +30,6 @@
     "spacing": 10
   },
   "clock": {
-    "timezone": "Europe/London",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%d/%m - %H:%M}",
     "on-click": "launch-webapp https://calendar.google.com"
