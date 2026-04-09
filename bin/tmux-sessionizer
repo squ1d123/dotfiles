@@ -88,7 +88,7 @@ find_dirs() {
         fi
 
         # Using fd over find for much better performance
-        [[ -d "$path" ]] && fd --min-depth 1 --max-depth "${depth:-${TS_MAX_DEPTH:-1}}" --prune --type d --hidden '^.git$' "$path" | sed 's|\(.*\)\/\.git|\1|g'
+        [[ -d "$path" ]] && fd --min-depth 1 --max-depth "${depth:-${TS_MAX_DEPTH:-1}}" --prune  --hidden '^.git$' "$path" | sed 's|\(.*\)\/\.git|\1|g'
     done
 }
 
