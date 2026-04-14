@@ -48,6 +48,7 @@ return {
       add_linters('markdown', 'markdownlint-cli2')
       add_linters('yaml', 'yamllint')
       add_linters('go', 'golangcilint')
+      add_linters('terraform', 'tflint')
 
       -- Set linters
       lint.linters_by_ft = available_linters

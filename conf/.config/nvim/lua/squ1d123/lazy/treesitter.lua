@@ -2,33 +2,48 @@ return {
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
+    -- dependencies = {
+    --   'nvim-treesitter/nvim-treesitter-textobjects',
+    -- },
+    lazy = false,
     build = ':TSUpdate',
+    brach = 'master',
     config = function()
-      require('nvim-treesitter.configs').setup {
-        -- A list of parser names, or "all"
-        ensure_installed = { "vimdoc", "javascript", "typescript", "lua", "rust", "bash", "python", "tsx", "go", "hcl", "terraform", "yaml", "markdown_inline" },
+      require('nvim-treesitter').install({
+        "vimdoc", "javascript", "typescript", "lua", "rust", "bash", "python", "tsx", "go", "hcl", "terraform", "yaml",
+        "markdown_inline"
+      })
 
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = false,
+      -- enable treesitter highlighting if we have an installed parser and 
+      -- highlighting is supported
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          local buf = args.buf
+          local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+          if not lang then
+            return
+          end
 
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = true,
+          if vim.treesitter.query.get(lang, 'highlights') then
+            vim.treesitter.start(buf)
+          end
+        end,
+      })
 
-        highlight = {
-          -- `false` will disable the whole extension
-          enable = true,
-
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = false,
-        },
-      }
+      vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+      callback = function()
+        require('nvim-treesitter.parsers').cedar = {
+          install_info = {
+            url = 'https://github.com/chrnorm/tree-sitter-cedar',
+            -- optional entries:
+            -- branch = 'develop', -- only needed if different from default branch
+            -- location = 'parser', -- only needed if the parser is in subdirectory of a "monorepo"
+            -- generate = true, - only needed if repo does not contain pre-generated `src/parser.c`
+            -- generate_from_json = false, -- only needed if repo does not contain `src/grammar.json` either
+            queries = 'queries/', -- also install queries from given directory
+          },
+        }
+      end})
     end
   },
 
