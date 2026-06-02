@@ -235,7 +235,8 @@ return {
         "marksman",
         "docker_language_server",
         "jsonls",
-        "nginx_language_server"
+        "nginx_language_server",
+        "kotlin_lsp",
       })
     end
   },

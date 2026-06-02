@@ -5,7 +5,7 @@
   color: @foreground;
 
   font-family: JetbrainsMono Nerd Font;
-  font-size: 16px;
+  font-size: 10px;
   min-height: 0;
   padding-right: 2px;
   padding-left: 2px;
@@ -24,7 +24,7 @@
 #waybar {
   background: transparent;
   color: @default;
-  margin: 2px 2px;
+  margin: 2px 1px;
 }
 
 #workspaces {

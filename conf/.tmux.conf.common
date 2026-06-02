@@ -34,6 +34,10 @@ setw -g aggressive-resize on
 # https://github.com/neovim/neovim/wiki/FAQ
 set -g escape-time 10
 
+# Needed for Modified Enter keys within apps
+set -g extended-keys on
+set -g extended-keys-format csi-u
+
 # }}}
 # Mouse Functionality ------------------------------------------------------ {{{
 
