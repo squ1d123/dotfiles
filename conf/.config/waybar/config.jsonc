@@ -2,9 +2,11 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-        "hyprland/workspaces"
-    ],
-  "modules-center": ["clock"],
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
     "custom/updates",
     "custom/chomecast-volume",
@@ -36,7 +38,13 @@
   },
   "battery": {
     "format": "{icon}{capacity}%",
-    "format-icons": ["", " ", " ", " ", " "],
+    "format-icons": [
+      "",
+      " ",
+      " ",
+      " ",
+      " "
+    ],
     "tooltip": true
   },
   "network": {
@@ -44,18 +52,34 @@
     "format-ethernet": "󰈀 ",
     "format-disconnected": "󰤠 ",
     "interval": 5,
-    "tooltip": false
+    "tooltip": false,
+    "exec": "orbit waybar-status",
+    "return-type": "json",
+    "on-click": "orbit toggle top-right"
   },
   "temperature": {
     "critical-threshold": 80,
     "format": "{icon} {temperatureC}°C",
-    "format-icons": ["󱃃", "󰔏", "󱃂"],
+    "format-icons": [
+      "󱃃",
+      "󰔏",
+      "󱃂"
+    ],
     "on-click": "alacritty -e s-tui"
   },
   "cpu": {
     "interval": 1,
     "format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+    "format-icons": [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ]
   },
   "memory": {
     "interval": 30,
@@ -65,7 +89,11 @@
     "format": "{icon} {volume}%",
     "format-muted": "",
     "format-icons": {
-      "default": ["", "", " "]
+      "default": [
+        "",
+        "",
+        " "
+      ]
     },
     "on-click": "pavucontrol"
   },
@@ -100,4 +128,3 @@
     "format": "G {}"
   }
 }
-
