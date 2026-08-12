@@ -30,6 +30,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<C-s>", "<cmd>silent !tmux neww tmux-ls-sessions<CR>")
 -- using gitlab fugitive instead
 -- vim.keymap.set("n", "<C-g>", "<cmd>silent !open-in-gitlab<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
@@ -45,6 +46,25 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Jump back to previous buffer
 vim.keymap.set("n", "<leader><TAB>", ":e#<CR>")
+
+-- Move between windows with Ctrl-hjkl
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+
+-- Toggle zoom for current window
+vim.keymap.set('n', '<leader>z', function()
+    if vim.t.zoomed then
+        vim.cmd(vim.t.zoom_restore)
+        vim.t.zoomed = false
+    else
+        vim.t.zoom_restore = vim.fn.winrestcmd()
+        vim.cmd('wincmd _ | wincmd |')
+        vim.t.zoomed = true
+    end
+end, { desc = 'Toggle window zoom' })
+
 
 -- Paste without auto-indent problems
 vim.keymap.set("n", "<leader>op", ":set invpaste paste?<CR>")
@@ -63,3 +83,6 @@ vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'grn')
 vim.keymap.del('n', 'grt')
+
+
+vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })

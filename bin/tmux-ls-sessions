@@ -1,0 +1,26 @@
+#!/bin/bash
+
+list_sessions() {
+    if [[ -n "${TMUX}" ]]; then
+        current_session=$(tmux display-message -p '#S')
+        tmux list-sessions -F "#{session_name}" 2>/dev/null | grep -vFx "$current_session"
+    else
+        tmux list-sessions -F "#{session_name}" 2>/dev/null
+    fi
+}
+
+switch_to() {
+    if [[ -z $TMUX ]]; then
+        tmux attach-session -t "$1"
+    else
+        tmux switch-client -t "$1"
+    fi
+}
+
+selected=$(list_sessions | fzf-tmux -p --reverse -1 -0 +m)
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+switch_to "$selected"

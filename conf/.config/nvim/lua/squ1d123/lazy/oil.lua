@@ -10,6 +10,7 @@ return {
             keymaps = {
                 ["<C-h>"] = false,
                 ["<C-p>"] = false,
+                ["<C-s>"] = false,
             },
             view_options = {
                 show_hidden = true,
